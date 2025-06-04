@@ -77,3 +77,31 @@ Open your terminal.
         cat ./...Hiding-From-You
 
 6. Copy the password displayed — it’s for Level 4.
+
+## Level 4 ➝ Level 5
+
+**Description**: The password for the next level is stored in the only human-readable file in the inhere directory. Tip: if your terminal is messed up, try the “reset” command.
+
+**Steps**:
+
+1. Login as bandit4 using the password from Level 3:
+
+        ssh -p 2220 bandit4@bandit.labs.overthewire.org 
+
+2. Change the pwd to "inhere".
+           
+        cd inhere
+   
+3. Use find to search for hidden files inside inhere:
+
+        ls -a
+   
+5. Check file type for each file in the directory:
+
+        file ./-file*
+
+6. Open the file with the type "ASCII text".
+
+        cat ./-file07
+ 
+7. Copy the password displayed — it’s for Level 5.
