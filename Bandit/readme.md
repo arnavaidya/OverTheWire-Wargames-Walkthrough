@@ -168,3 +168,22 @@ The password for the next level is stored in a file somewhere under the inhere d
 - 'N-ZA-Mn-za-m' → Rearranges the alphabet to shift letters by 13 places.
 
 **File**: data.txt
+
+### Bandit Level 12 → Level 13
+**Key Takeaways**: Learn how to convert hexdump files and extract compressed files, using the xxd and various (de)compression utility commands respectively. The password for the next level is stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed. For this level it may be useful to create a directory under /tmp in which you can work using mkdir. For example: mkdir /tmp/myname123. Then copy the datafile using cp, and rename it using mv (read the manpages!).
+
+**Steps**:
+
+*Step 1:* First, make a new directory of your choice under /tmp. Next, copy data.txt to this new directory.
+
+        cp data.txt /tmp/arnav
+
+*Step 2:* The file command identifies data.txt as an ASCII text file, but when you view its contents, it’s actually a hex dump. Convert the hex dump into binary.
+
+        xxd -r data.txt > file
+
+*Step 3:* "*file file*" shows us that the converted hex dump contains gzip compressed data. Rename *file* as *file.gz* using "*mv file file.gz*."
+
+        
+
+**File**: data.txt
