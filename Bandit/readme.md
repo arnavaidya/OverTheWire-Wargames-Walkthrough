@@ -135,3 +135,15 @@ The password for the next level is stored in a file somewhere under the inhere d
 
 **File**: data.txt
 
+### Bandit Level 10 → Level 11
+**Key Takeaways**: Learn how to decode base64 encoded data, using the base64 command. The password for the next level is stored in the file data.txt, which contains base64 encoded data.
+**Command**:
+
+        base64 -d data.txt
+
+**Explanation**:
+
+*base64 -d* – Decodes data that has been encoded using the Base64 encoding scheme.
+
+**File**: data.txt
+
