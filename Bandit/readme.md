@@ -121,6 +121,7 @@ Open your terminal.
         find inhere -type f -size 1033c ! -executable
 
 Explanation:
+
         find – the command-line utility used to search for files and directories.
 
         inhere – the directory where the search is performed.
