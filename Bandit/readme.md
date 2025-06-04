@@ -44,7 +44,7 @@ Open your terminal.
 
 **Steps**:
 
-1. Login as bandit2 using the password from Level 0:
+1. Login as bandit2 using the password from Level 1:
 
         ssh -p 2220 bandit2@bandit.labs.overthewire.org 
    
@@ -54,3 +54,26 @@ Open your terminal.
    
 3. Copy the password displayed for Level 3.
 
+## Level 3 ➝ Level 4
+
+**Description**: The password for the next level is stored in a hidden file in the inhere directory.
+
+**Steps**:
+
+1. Login as bandit3 using the password from Level 2:
+
+        ssh -p 2220 bandit3@bandit.labs.overthewire.org 
+
+2. Change the pwd to "inhere".
+           
+        cd inhere
+   
+3. Use find to search for hidden files inside inhere:
+
+        find -L
+   
+5. Read the content of the found file:
+
+        cat ./...Hiding-From-You
+
+6. Copy the password displayed — it’s for Level 4.
