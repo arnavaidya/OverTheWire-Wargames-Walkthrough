@@ -28,7 +28,7 @@ The password for the next level is stored in a file called spaces in this filena
 **Key Takeaways**: Learn how to see all files in a directory, by using the -a (--all) argument to the ls command.
 The password for the next level is stored in a hidden file in the inhere directory.
 
-File: .hidden
+**File**: .hidden
 
 **Commands**:
 
@@ -46,13 +46,13 @@ The password for the next level is stored in the only human-readable file in the
 
 **Explanation**:
 
-file: a Linux utility that examines the content of a file, not just the extension, to determine its type (e.g., ASCII text, binary, image, etc.)
+*file*: a Linux utility that examines the content of a file, not just the extension, to determine its type (e.g., ASCII text, binary, image, etc.)
 
-./file*: uses a glob pattern to match all files in the current directory starting with file (e.g., file01, file_ab, fileXYZ)
+*./file**: uses a glob pattern to match all files in the current directory starting with file (e.g., file01, file_ab, fileXYZ)
 
 **Note**: human-readable file means a file with only ASCII text in this context.
 
-File: -file07
+**File**: -file07
 
 ### Bandit Level 5 → Level 6
 **Key Takeaways**: Learn how to find a targeted file given a set of properties, by using the find command.
@@ -65,12 +65,12 @@ The password for the next level is stored in a file somewhere under the inhere d
 
 **Explanation**:
 
--type f – restricts the search to regular files (not directories, symlinks, etc.).
+*-type f* – restricts the search to regular files (not directories, symlinks, etc.).
 
--size 1033c – looks for files that are exactly 1033 bytes in size.
+*-size 1033c* – looks for files that are exactly 1033 bytes in size.
 
-c means bytes (you could also use k for kilobytes, M for megabytes, etc.)
+*c* means bytes (you could also use k for kilobytes, M for megabytes, etc.)
 
-! -executable – filters out executable files, meaning it will only return files that are not executable. This helps ensure you're dealing with plain text or human-readable files.
+*! -executable* – filters out executable files, meaning it will only return files that are not executable. This helps ensure you're dealing with plain text or human-readable files.
 
 **File**: maybehere07/.file2
