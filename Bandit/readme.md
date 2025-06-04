@@ -37,3 +37,20 @@ Open your terminal.
         cat ./-
    
 3. Copy the password displayed for Level 2.
+
+## Level 2 ➝ Level 3
+
+**Description**: The password for the next level is stored in a file called "spaces in this filename", which is a tricky filename.
+
+**Steps**:
+
+1. Login as bandit2 using the password from Level 0:
+
+        ssh -p 2220 bandit2@bandit.labs.overthewire.org 
+   
+2. Read the file named - using:
+
+        cat "spaces in this filename"
+   
+3. Copy the password displayed for Level 3.
+
