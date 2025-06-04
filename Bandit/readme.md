@@ -10,7 +10,7 @@ Open your terminal.
 
 1. Connect using SSH:
 
-        ssh bandit0@bandit.labs.overthewire.org -p 2220
+        ssh -p 2220 bandit0@bandit.labs.overthewire.org 
 
 2. Enter the password when prompted:
 
@@ -30,7 +30,7 @@ Open your terminal.
 
 1. Login as bandit1 using the password from Level 0:
 
-        ssh bandit1@bandit.labs.overthewire.org -p 2220
+        ssh -p 2220 bandit1@bandit.labs.overthewire.org 
    
 2. Read the file named - using:
 
