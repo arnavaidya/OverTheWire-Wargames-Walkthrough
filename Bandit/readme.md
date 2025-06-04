@@ -186,13 +186,17 @@ The password for the next level is stored in a file somewhere under the inhere d
 
         gzip -d file.gz
 
-*Step 4:* "*file file*" shows that the file was compressed with bzip2. Rename it to *file.bz2* using *mv file file.bz2*. Then unzip it using the command:
+*Step 4:* "*file file*" shows that the file was compressed with bzip2. Rename it to *file.bz2* using "*mv file file.bz2*". Then unzip it using the command:
 
         bzip2 -d file.bz2
 
-*Step 5:* "*file file*" shows that the file was compressed with gzip. Rename it to *file.gz* using *mv file file.gz*. Then unzip it using *gzip -d file.gz*.
+*Step 5:* "*file file*" shows that the file was compressed with gzip. Rename it to *file.gz* using "*mv file file.gz*". Then unzip it using *gzip -d file.gz*.
 
-*Step 6:* "*file file*" shows that the file was compressed with POSIX tar. Rename it to *file.tar* using *mv file file.tar*. Then extract it using *tar xf file.tar* to get data5.bin.
+*Step 6:* "*file file*" shows that the file was compressed with POSIX tar. Rename it to *file.tar* using "*mv file file.tar*". Then extract it using the command:
+
+        tar xf file.tar 
+
+to get data5.bin.
 
 *Step 7:* Remove unnecessary files like data.txt and file.tar using "*rm*". "*file data5.bin*" shows that the file was compressed with POSIX tar. Rename it to *data5.tar* using "*mv data5.bin data5.tar*". Then extract it using "*tar xf data5.tar*" to get data6.bin.
 
