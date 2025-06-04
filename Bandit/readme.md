@@ -151,3 +151,18 @@ The password for the next level is stored in a file somewhere under the inhere d
 
 **File**: data.txt
 
+### Bandit Level 11 → Level 12
+**Key Takeaways**: Learn how to transform strings, using the tr command. The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions (Rot13 substitution cipher).
+**Command**:
+
+        cat data.txt | tr 'A-Za-z' 'N-ZA-Mn-za-m'
+
+**Explanation**:
+
+*tr 'A-Za-z' 'N-ZA-Mn-za-m'* – Performs ROT13 decoding or encoding by shifting each letter 13 places in the alphabet.
+
+- 'tr' → Translates characters from one set to another, character by character.
+- 'A-Za-z' → Matches all uppercase and lowercase letters.
+- 'N-ZA-Mn-za-m' → Rearranges the alphabet to shift letters by 13 places.
+
+**File**: data.txt
