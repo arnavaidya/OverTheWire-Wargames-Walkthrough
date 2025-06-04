@@ -10,14 +10,14 @@ Open your terminal.
 
 1. Connect using SSH:
 
-    ssh bandit0@bandit.labs.overthewire.org -p 2220
+        ssh bandit0@bandit.labs.overthewire.org -p 2220
 
 2. Enter the password when prompted:
 
-    bandit0
+        bandit0
 
 3. Once logged in, read the password for the next level:
 
-    cat readme
+        cat readme
 
 4. Save the password shown — it will be used for Level 1.
