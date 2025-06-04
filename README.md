@@ -7,11 +7,11 @@ This repository contains detailed walkthroughs and solutions for the OverTheWire
 Bandit – Linux basics, file manipulation, SSH, permissions
 
 # What You'll Find:
-Step-by-step solutions for each level
+1. Step-by-step solutions for each level
 
-Command explanations to help you learn, not just solve
+2. Command explanations to help you learn, not just solve
 
-Tips and resources for understanding key concepts
+3. Tips and resources for understanding key concepts
 
 # Getting Started:
 
