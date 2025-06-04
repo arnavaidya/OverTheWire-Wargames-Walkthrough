@@ -76,8 +76,7 @@ The password for the next level is stored in a file somewhere under the inhere d
 **File**: maybehere07/.file2
 
 ### Bandit Level 6 → Level 7
-**Key Takeaways**: Learn how to find a targeted file given ownership, group, and size criteria by using the find command, and how to suppress permission errors during search.
-The password for the next level is stored in a file somewhere on the system with the following properties: owned by user bandit7, owned by group bandit6, and exactly 33 bytes in size.
+**Key Takeaways**: Learn how to find a targeted file given ownership, group, and size criteria by using the find command, and how to suppress permission errors during search. The password for the next level is stored in a file somewhere on the system with the following properties: owned by user bandit7, owned by group bandit6, and exactly 33 bytes in size.
 
 **Command**:
 
@@ -96,3 +95,12 @@ The password for the next level is stored in a file somewhere on the system with
 *2>/dev/null* – suppresses permission denied errors.
 
 **File**: /var/lib/dpkg/info/bandit7.password
+
+### Bandit Level 7 → Level 8
+**Key Takeaways**: Learn how to search for a specific word within a file, by using the grep command. The password for the next level is stored in the file data.txt next to the word millionth.
+
+**Command**:
+
+        grep millionth data.txt
+
+**File**: data.txt
