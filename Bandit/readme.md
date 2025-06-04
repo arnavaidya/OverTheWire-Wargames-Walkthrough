@@ -104,3 +104,34 @@ The password for the next level is stored in a file somewhere under the inhere d
         grep millionth data.txt
 
 **File**: data.txt
+
+### Bandit Level 8 → Level 9
+**Key Takeaways**: Learn how to search within a file given a set of criteria, by using the sort and uniq commands, in addition to piping within the terminal. The password for the next level is stored in the file data.txt and is the only line of text that occurs only once.
+
+**Command**:
+
+        cat data.txt | sort | uniq -u
+
+**Explanation**:
+
+*sort* – Sorts the lines alphabetically (required before using uniq, because uniq only detects duplicates in adjacent lines).
+
+*uniq -u* – Filters the sorted output to only show lines that appear exactly once (unique lines).
+
+**File**: data.txt
+
+### Bandit Level 9 → Level 10
+**Key Takeaways**: Learn how to search for strings within a file that does not contain only ASCII characters, by using the strings and grep command. The password for the next level is stored in the file data.txt in one of the few human-readable strings, beginning with several ‘=’ characters.
+
+**Command**:
+
+        strings data.txt | grep ===
+
+**Explanation**:
+
+*strings* – Extracts printable (human-readable) ASCII text from a file — typically used on binary files.
+
+*grep ===* – Searches for lines containing the string ===.
+
+**File**: data.txt
+
