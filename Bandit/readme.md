@@ -74,3 +74,25 @@ The password for the next level is stored in a file somewhere under the inhere d
 *! -executable* – filters out executable files, meaning it will only return files that are not executable. This helps ensure you're dealing with plain text or human-readable files.
 
 **File**: maybehere07/.file2
+
+### Bandit Level 6 → Level 7
+**Key Takeaways**: Learn how to find a targeted file given ownership, group, and size criteria by using the find command, and how to suppress permission errors during search.
+The password for the next level is stored in a file somewhere on the system with the following properties: owned by user bandit7, owned by group bandit6, and exactly 33 bytes in size.
+
+**Command**:
+
+        find / -type f -user bandit7 -group bandit6 -size 33c 2>/dev/null
+
+**Explanation**:
+
+*-type f* – restricts the search to regular files (not directories, symlinks, etc.).
+
+*-user bandit7* – files owned by the user bandit7.
+
+*-group bandit6* – files owned by the group bandit6.
+
+*-size 33c* – files exactly 33 bytes in size.
+
+*2>/dev/null* – suppresses permission denied errors.
+
+**File**: /var/lib/dpkg/info/bandit7.password
