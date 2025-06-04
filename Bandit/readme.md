@@ -105,3 +105,36 @@ Open your terminal.
         cat ./-file07
  
 7. Copy the password displayed — it’s for Level 5.
+
+# Level 5 ➝ Level 6
+
+**Description**: The password for the next level is stored in a human-readable file in the inhere directory, not executable, 1033 bytes in size, and only one such file exists.
+
+**Steps**:
+
+1. Login as bandit4 using the password from Level 3:
+
+        ssh -p 2220 bandit5@bandit.labs.overthewire.org
+
+2. Find the target file using the find command:
+
+        find inhere -type f -size 1033c ! -executable
+
+Explanation:
+        find – the command-line utility used to search for files and directories.
+
+        inhere – the directory where the search is performed.
+
+        -type f – restricts the search to regular files (not directories, symlinks, etc.).
+
+        -size 1033c – looks for files that are exactly 1033 bytes in size.
+
+        c means bytes (you could also use k for kilobytes, M for megabytes, etc.)
+
+        ! -executable – filters out executable files, meaning it will only return files that are not executable.
+        This helps ensure you're dealing with plain text or human-readable files.
+4. Read the contents of the file (replace the path with the exact file found):
+
+        cat ./maybehere07/.file2
+   
+6. Save the password shown — it will be used for Level 6.
