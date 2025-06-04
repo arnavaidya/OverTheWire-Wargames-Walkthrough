@@ -96,7 +96,7 @@ Open your terminal.
 
         ls -a
    
-5. Check file type for each file in the directory:
+5. Check file type for each file in the directory using "file" command:
 
         file ./-file*
 
