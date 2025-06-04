@@ -21,3 +21,19 @@ Open your terminal.
         cat readme
 
 4. Save the password shown — it will be used for Level 1.
+
+## Level 1 ➝ Level 2
+
+**Description**: The password for the next level is stored in a file called -, which is a tricky filename.
+
+**Steps**:
+
+1. Login as bandit1 using the password from Level 0:
+
+        ssh bandit1@bandit.labs.overthewire.org -p 2220
+   
+2. Read the file named - using:
+
+        cat ./-
+   
+3. Copy the password displayed for Level 2.
