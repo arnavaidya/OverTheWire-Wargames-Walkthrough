@@ -182,8 +182,24 @@ The password for the next level is stored in a file somewhere under the inhere d
 
         xxd -r data.txt > file
 
-*Step 3:* "*file file*" shows us that the converted hex dump contains gzip compressed data. Rename *file* as *file.gz* using "*mv file file.gz*."
+*Step 3:* "*file file*" shows us that the converted hex dump contains gzip compressed data. Rename *file* as *file.gz* using "*mv file file.gz*." Unzip the file using the command:
 
-        
+        gzip -d file.gz
 
-**File**: data.txt
+*Step 4:* *file file* shows that the file was compressed with bzip2. Rename it to *file.bz2* using *mv file file.bz2*. Then unzip it using the command:
+
+        bzip2 -d file.bz2
+
+*Step 5:* *file file* shows that the file was compressed with gzip. Rename it to *file.gz* using *mv file file.gz*. Then unzip it using *gzip -d file.gz*.
+
+*Step 6:* *file file* shows that the file was compressed with POSIX tar. Rename it to *file.tar* using *mv file file.tar*. Then extract it using *tar xf file.tar* to get data5.bin.
+
+*Step 7:* Remove unnecessary files like data.txt and file.tar using *rm*. *file data5.bin* shows that the file was compressed with POSIX tar. Rename it to *data5.tar* using *mv data5.bin data5.tar*. Then extract it using *tar xf data5.tar* to get data6.bin.
+
+*Step 8:* *file data6.bin* shows that the file was compressed with bzip2. Rename it to *data6.bz2* using *mv data6.bin data6.bz2*. Then extract the file using *bzip2 -d data6.bz2* to get data6.
+
+*Step 9:* *file data6* shows that the file was compressed with POSIX tar. Rename it to *data6.tar* using *mv data6 data6.tar*. Then extract the file using the command *tar xf data6.tar* to get data8.bin.
+
+*Step 10:* *file data8.bin* shows that the file was compressed with gzip. Rename it to *data8.gz* using *mv data8.bin data8.gz*. Then extract the file using the command *gzip -d data8.gz* to get data8.
+
+*Step 11:* *file data8* shows that the file contains only ASCII text. Read the file using *cat data8* to get the password.
