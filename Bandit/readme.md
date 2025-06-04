@@ -34,7 +34,7 @@ The password for the next level is stored in a hidden file in the inhere directo
 
 **File**: .hidden
 
-**Commands**:
+**Command**:
 
         cd inhere
         ls -a
