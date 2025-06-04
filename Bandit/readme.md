@@ -14,6 +14,10 @@ The password for the next level is stored in a file called - located in the home
 
 **File**: -
 
+**Command**:
+
+        cat ./-
+
 ### Bandit Level 2 → Level 3
 **Key Takeaways**: Learn how to read files with spaces in its file name.
 The password for the next level is stored in a file called spaces in this filename located in the home directory.
