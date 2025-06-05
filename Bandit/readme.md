@@ -266,6 +266,7 @@ Used *cat* command on the path provided to obtain the password.
 *Step 2:* Connect to port 30001 on localhost using *ncat --ssl* or *openssl*.
 
         ncat --ssl localhost 30001
+                or
         openssl s_client -connect localhost:30001
 
 *Step 3:* Enter the level 15 password and enter. If the password checks out, the password for the next level will be received.
