@@ -241,4 +241,4 @@ Reattempted the SSH connection using the corrected key permissions. This time, a
 
 **Step 5: Got the password*
 
-Used cat command on the path provided to obtain the password.
+Used *cat* command on the path provided to obtain the password.
