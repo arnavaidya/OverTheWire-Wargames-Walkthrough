@@ -242,3 +242,16 @@ Reattempted the SSH connection using the corrected key permissions. This time, a
 **Step 5: Got the password*
 
 Used *cat* command on the path provided to obtain the password.
+
+### Bandit Level 14 → Level 15
+**Key Takeaways**: Learn how to send data to another host, using the telnet command. The password for the next level can be retrieved by submitting the password of the current level to port 30000 on localhost.
+
+**Approach**:
+
+*Step 1:* Login to the bandit server as bandit14 using the password obtained in the previous level.
+
+*Step 2:* Connect to port 30000 on localhost using telnet/nc.
+
+        telnet localhost 30000
+
+*Step 3:* Enter the level 14 password and enter. I f the password checks out, the password for the next level will be received.
