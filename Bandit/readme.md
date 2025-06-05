@@ -254,4 +254,4 @@ Used *cat* command on the path provided to obtain the password.
 
         telnet localhost 30000
 
-*Step 3:* Enter the level 14 password and enter. I f the password checks out, the password for the next level will be received.
+*Step 3:* Enter the level 14 password and enter. If the password checks out, the password for the next level will be received.
