@@ -270,3 +270,30 @@ Used *cat* command on the path provided to obtain the password.
         openssl s_client -connect localhost:30001
 
 *Step 3:* Enter the level 15 password and enter. If the password checks out, the password for the next level will be received.
+
+### Bandit Level 16 → Level 17
+**Key Takeaways**: Learn how to identify listening ports within a server, using the nmap, openssl and s_client command. The credentials for the next level can be retrieved by submitting the password of the current level to a port on localhost in the range 31000 to 32000. First find out which of these ports have a server listening on them. Then find out which of those speak SSL and which don’t. There is only 1 server that will give the next credentials, the others will simply send back to you whatever you send to it.
+
+**Approach**:
+
+*Step 1:* Run an nmap scan on the range of ports 31000-32000.
+
+        nmap -p 31000-32000 localhost
+
+*Step 2:* Run an nmap scan on the resultant open ports with the -A parameter.
+
+Note: *-A* parameter to nmap enables OS and version detection, script scanning, and traceroute (Basically, additional info about the ports).
+
+        nmap -p 31046,31518,31691,31790,31960 -A localhost
+
+*Step 3:* Only one port can be seen having an ssl speaking server running an unknown service - port 31790. Connect to the port using *openssl* command with *-ign_eof* (Not using it might result into a KEYUPDATE).
+
+        openssl s_client -connect localhost:31790 -ign_eof
+
+An RSA private key will be received.
+
+*Step 4:* Copy this key into a file on the local machine. Grant all file permissions to the owner using the *chmod 700* command. 
+
+*Step 5:* Use this keyfile to connect to the bandit server with bandit17 user using *ssh* command.
+
+
