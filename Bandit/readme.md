@@ -223,7 +223,7 @@ Access was denied due to permission issues.
 
 *Step 2: Transferred the Private Key to Local Machine*
 
-Copied the contents of the private key into a local file and attempted to SSH into the Bandit server as bandit14 from the local machine using the *ssh -i <keyfile> -p 2220 bandit14@bandit.labs.overthewire.org* command. 
+Copied the contents of the private key into a local file and attempted to SSH into the Bandit server as bandit14 from the local machine using the *ssh -i keyfile -p 2220 bandit14@bandit.labs.overthewire.org* command. 
 
         ssh -p 2220 bandit14@bandit.labs.overthewire.org -i private.key
         
