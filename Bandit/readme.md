@@ -207,3 +207,38 @@ to get data5.bin.
 *Step 10:* "*file data8.bin*" shows that the file was compressed with gzip. Rename it to *data8.gz* using "*mv data8.bin data8.gz*". Then extract the file using the command "*gzip -d data8.gz*" to get data8.
 
 *Step 11:* "*file data8*" shows that the file contains only ASCII text. Read the file using "*cat data8*" to get the password.
+
+### Bandit Level 13 → Level 14
+**Key Takeaways**: Learn how to log in to a server using a SSH (RSA) private key, using the ssh command. The password for the next level is stored in /etc/bandit_pass/bandit14 and can only be read by user bandit14. For this level, you don’t get the next password, but you get a private SSH key that can be used to log into the next level. Note: localhost is a hostname that refers to the machine you are working on.
+
+**Approach**:
+
+*Step 1: Attempted Direct SSH Login from bandit13*
+
+Tried accessing the bandit14 account directly from the bandit13 session using the ssh -i option with the private key provided.
+        
+        bandit13@bandit:~$ ssh -i sshkey.private bandit14@localhost
+
+Access was denied due to permission issues.
+
+*Step 2: Transferred the Private Key to Local Machine*
+
+Copied the contents of the private key into a local file and attempted to SSH into the Bandit server as bandit14 from the local machine using the ssh -i <keyfile> -p 2220 bandit14@bandit.labs.overthewire.org command. 
+
+        ssh -p 2220 bandit14@bandit.labs.overthewire.org -i private.key
+        
+Again, permission was denied due to the private key file being accessible by others and being unprotected.
+
+*Step 3: Inspected and Corrected Key File Permissions*
+
+Verified the permissions of the private key file (using ls -l) and found they were too open, which is not accepted by SSH for authentication. Resolved this by running chmod 700 <keyfile> to restrict access appropriately (read, write, and execute for the owner only).
+        
+        chmod 700 private.key
+
+*Step 4: Successful Login:*
+
+Reattempted the SSH connection using the corrected key permissions. This time, authentication was successful and access to the bandit14 account was granted.
+
+**Step 5: Got the password*
+
+Used cat command on the path provided to obtain the password.
