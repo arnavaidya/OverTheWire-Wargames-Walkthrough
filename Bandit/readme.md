@@ -297,7 +297,7 @@ An RSA private key will be received.
 *Step 5:* Use this keyfile to connect to the bandit server with bandit17 user using *ssh* command.
 
 ### Bandit Level 17 → Level 18
-**Key Takeaways**:  Learn how to compare the contents of 2 files, using the diff command. There are 2 files in the homedirectory: passwords.old and passwords.new. The password for the next level is in passwords.new and is the only line that has been changed between passwords.old and passwords.new. 
+**Key Takeaways**: Learn how to compare the contents of 2 files, using the diff command. There are 2 files in the homedirectory: passwords.old and passwords.new. The password for the next level is in passwords.new and is the only line that has been changed between passwords.old and passwords.new. 
 NOTE: if you have solved this level and see ‘Byebye!’ when trying to log into bandit18, this is related to the next level, bandit19.
 
 **Approach**:
@@ -308,3 +308,13 @@ NOTE: if you have solved this level and see ‘Byebye!’ when trying to log int
         
 **Note:** The output of the *diff* command is dependent on the order of the parameters supplied to the command. If passwords.new is the second parameter, the second string that is printed in the output is the password for the next level.
 
+### Bandit Level 18 → Level 19
+**Key Takeaways**: Learn how to log in to a server via SSH without running .bash files (e.g. .bashrc and .bash_logout), using the ssh command with a set of parameters. The password for the next level is stored in a file readme in the home directory. Unfortunately, someone has modified .bashrc to log you out when you log in with SSH.
+
+**Approach**:
+
+*Step 1:* Use the 'command' feature of *ssh* to execute a command on the remote machine.
+
+        ssh -p 2220 bandit18@bandit.labs.overthewire.org cat readme
+        
+**Note:** If a command is specified, it will be executed on the remote host instead of a login shell.
