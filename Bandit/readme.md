@@ -374,5 +374,33 @@ Inside, you'll see that it runs a script located at /usr/bin/cronjob_bandit22.sh
 
 *Step 2:* Upon examining the script, you’ll notice that the password for the next level is being written in a file called t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv in the /tmp directory.
 
+        cat /usr/bin/cronjob_bandit22.sh.
         cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 
+### Bandit Level 22 → Level 23
+**Key Takeaways**: Learn how to modify shell scripts that form part of a cron job. A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed. NOTE: Looking at shell scripts written by other people is a very useful skill. The script for this level is intentionally made easy to read. If you are having problems understanding what it does, try executing it to see the debug information it prints.
+
+**Approach**:
+
+*Step 1:* Start by navigating to the /etc/cron.d directory. Here, you’ll find three cron job files corresponding to the next three levels. These are plain ASCII text files.
+Open cronjob_bandit23, as it pertains to the level we're working on.
+
+        cd /etc/cron.d
+        ls
+        cat cronjob_bandit23.sh
+
+Inside, you'll see that it runs a script located at /usr/bin/cronjob_bandit23.sh. Open the file.
+
+        cat /usr/bin/cronjob_bandit23.sh.
+
+*Step 2:* Examining the script, it appears that the value assigned to the mytarget variable leads us to the password, since it points to a directory at /tmp/$mytarget. Since the script is executed by a cron job running as the bandit23 user, the myname variable will be set to bandit23.
+
+By manually evaluating the expression assigned to mytarget with myname=bandit23, we can determine the exact directory path.
+
+        echo I am user bandit23 | md5sum | cut -d ' ' -f 1
+
+We get the value of mytarget as "8ca319486bfbbc3663ea0fbe81326349".
+
+*Step 3:* Once we enter the correct value of mytarget, we can navigate to /tmp/$mytarget and retrieve the password for the next level.
+
+        cat /tmp/8ca319486bfbbc3663ea0fbe81326349
