@@ -363,10 +363,7 @@ When prompted, input the password for bandit20. If the password is correct, the 
 
 **Approach**:
 
-*Step 1:* 
-
-Start by navigating to the /etc/cron.d directory. Here, you’ll find three cron job files corresponding to the next three levels. These are plain ASCII text files.
-
+*Step 1:* Start by navigating to the /etc/cron.d directory. Here, you’ll find three cron job files corresponding to the next three levels. These are plain ASCII text files.
 Open cronjob_bandit22, as it pertains to the level we're working on.
 
         cd /etc/cron.d
@@ -375,9 +372,7 @@ Open cronjob_bandit22, as it pertains to the level we're working on.
 
 Inside, you'll see that it runs a script located at /usr/bin/cronjob_bandit22.sh.
 
-*Step 2:*
-
-Upon examining the script, you’ll notice that the password for the next level is being written in a file called t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv in the /tmp directory.
+*Step 2:* Upon examining the script, you’ll notice that the password for the next level is being written in a file called t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv in the /tmp directory.
 
         cat /tmp/t7O6lds9S0RqQh9aMcz6ShpAoZKF7fgv
 
