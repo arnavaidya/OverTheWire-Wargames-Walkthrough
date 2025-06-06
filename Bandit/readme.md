@@ -320,7 +320,7 @@ NOTE: if you have solved this level and see ‘Byebye!’ when trying to log int
 **Note:** If a command is specified, it will be executed on the remote host instead of a login shell.
 
 ### Bandit Level 19 → Level 20
-**Key Takeaways**:  Learn how to take on the role of another user, using a setuid binary. To gain access to the next level, you should use the setuid binary in the homedirectory. Execute it without arguments to find out how to use it. The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.
+**Key Takeaways**: Learn how to take on the role of another user, using a setuid binary. To gain access to the next level, you should use the setuid binary in the homedirectory. Execute it without arguments to find out how to use it. The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.
 
 **Approach**:
 
@@ -329,3 +329,31 @@ NOTE: if you have solved this level and see ‘Byebye!’ when trying to log int
         ./bandit20-do cat /etc/bandit_pass/bandit20
         
 **Note:** Executing *file bandit20-do* shows us that the file is a setuid ELF 32-bit LSB executable. Running the command allows us to take on the role of user bandit20 temporarily, because of the setuid (set user ID) executable.
+
+### Bandit Level 20 → Level 21
+**Key Takeaways**: Learn how to open a listening port and communicate using it, using the nc command. There is a setuid binary in the homedirectory that does the following: it makes a connection to localhost on the port you specify as a commandline argument. It then reads a line of text from the connection and compares it to the password in the previous level (bandit20). If the password is correct, it will transmit the password for the next level (bandit21).
+NOTE: Try connecting to your own network daemon to see if it works as you think.
+
+**Approach**:
+
+To complete this level, you’ll need two terminals, both logged in as bandit20.
+
+*Step 1 (Terminal A):*
+
+Start a listener using netcat on an arbitrary port (e.g., 9999):
+
+        nc -l -p 9999
+
+This will act as a server, waiting for incoming connections.
+
+*Step 2 (Terminal B):*
+
+Run the suconnect setuid binary with the same port number:
+
+        ./suconnect 9999
+
+This connects to the netcat listener you started on Terminal A.
+
+*Step 3 (Terminal A):*
+
+When prompted, input the password for bandit20. If the password is correct, the suconnect program will validate it and send back the password for bandit21 over the same connection — which will appear in Terminal A.
