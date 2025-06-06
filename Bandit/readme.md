@@ -318,3 +318,14 @@ NOTE: if you have solved this level and see ‘Byebye!’ when trying to log int
         ssh -p 2220 bandit18@bandit.labs.overthewire.org cat readme
         
 **Note:** If a command is specified, it will be executed on the remote host instead of a login shell.
+
+### Bandit Level 19 → Level 20
+**Key Takeaways**:  Learn how to take on the role of another user, using a setuid binary. To gain access to the next level, you should use the setuid binary in the homedirectory. Execute it without arguments to find out how to use it. The password for this level can be found in the usual place (/etc/bandit_pass), after you have used the setuid binary.
+
+**Approach**:
+
+*Step 1:* Execute the bandit20-do setuid file with a *cat* command as bandit20 (owner).
+
+        ./bandit20-do cat /etc/bandit_pass/bandit20
+        
+**Note:** Executing *file bandit20-do* shows us that the file is a setuid ELF 32-bit LSB executable. Running the command allows us to take on the role of user bandit20 temporarily, because of the setuid (set user ID) executable.
