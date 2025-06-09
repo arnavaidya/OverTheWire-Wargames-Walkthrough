@@ -404,3 +404,49 @@ We get the value of mytarget as "8ca319486bfbbc3663ea0fbe81326349".
 *Step 3:* Once we enter the correct value of mytarget, we can navigate to /tmp/$mytarget and retrieve the password for the next level.
 
         cat /tmp/8ca319486bfbbc3663ea0fbe81326349
+
+### Bandit Level 23 → Level 24
+**Key Takeaways**: Learn how to insert a shell script into an existing cron job. A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed. NOTE: This level requires you to create your own first shell-script. This is a very big step and you should be proud of yourself when you beat this level! NOTE 2: Keep in mind that your shell script is removed once executed, so you may want to keep a copy around...
+
+**Approach**:
+
+*Step 1:* Start by navigating to the /etc/cron.d directory. Here, you’ll find three cron job files corresponding to the next three levels. These are plain ASCII text files.
+Open cronjob_bandit23, as it pertains to the level we're working on.
+
+        cd /etc/cron.d
+        ls
+        cat cronjob_bandit24.sh
+
+Inside, you'll see that it runs a script located at /usr/bin/cronjob_bandit24.sh. Open the file.
+
+        cat /usr/bin/cronjob_bandit24.sh.
+
+*Step 2:* The shell script is designed to periodically execute and then delete all scripts located in /var/spool/bandit24/foo during each run. The key insight is that this behavior can be exploited by placing a custom script in /var/spool/bandit24 that copies the password from /etc/bandit_pass to a user-controlled directory. Therefore, a shell script should be created in a custom directory under /tmp. The goal is to copy the password file from /etc/bandit_pass/bandit24 to a user-controlled location—this time leveraging the cron job to execute the script automatically.
+
+        mkdir /tmp/arnavigator
+        cd /tmp/arnavigator
+        nano myscript.sh
+
+*Step 3:* The script only needs two essential lines:
+
+        #!/bin/bash
+        cat /etc/bandit_pass/bandit24 > /tmp/arnavigator/password.txt
+
+All other lines, such as print/debug statements or variable assignments, are optional and not necessary for the script's functionality. Make sure to set the script as executable using *chmod +x*.
+
+        chmod +x myscript.sh
+
+*Step 4:* Another important step is to ensure that /tmp/<your_directory> is writable by bandit24, as the cron job runs under the bandit24 user. By default, a newly created directory under /tmp is only writable by its owner. To allow bandit24 to write the password file, the directory permissions must be adjusted. For simplicity, this can be done using:
+
+        chmod 777 /tmp/arnavigator
+        
+This grants read, write, and execute permissions to all users, allowing the script to execute successfully.
+
+*Step 5:* Copy the shell script to /var/spool/bandit24. After placing it there, wait a few minutes. The cron job will pick up the script, execute it, and then delete it. Once executed, the password will be available at /tmp/<your_directory>/<your_file_name> (Use *ls*). Simply read the password file using *cat* to get the next password.
+
+        cat password.txt
+
+
+
+
+
