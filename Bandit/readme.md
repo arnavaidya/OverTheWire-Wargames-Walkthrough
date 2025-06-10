@@ -468,3 +468,53 @@ To automate this, we first create a file to store all possible 4-digit PINs:
 *Step 3:* Once the list is ready, we send it to the daemon using netcat:
 
         cat pinlist.txt | nc localhost 30002
+
+### Bandit Level 25 → Level 26
+**Key Takeaways**: Learn more about the intricacies of the more command, as well as the capabilities of a text editor. Logging in to bandit26 from bandit25 should be fairly easy… The shell for user bandit26 is not /bin/bash, but something else. Find out what it is, how it works and how to break out of it.
+
+**Approach**:
+
+*Step 1:* Upon logging into Level 25, we observe that the SSH private key for Bandit26 is available in the current working directory. Logging into Bandit26 using:
+
+        ssh -i bandit26.sshkey bandit26@localhost
+
+is successful but immediately results in the session being terminated.
+
+*Step 2:* A noticeable difference is that the usual login banner or message is absent, and the connection ends right after login. Reviewing the level description reveals a key hint — checking the login shell of Bandit26.
+
+We run the following command to inspect the shell associated with a user:
+
+        getent passwd bandit26 | cut -d: -f7
+
+For bandit24 and bandit25, the shell is */bin/bash*.
+
+For bandit26, it is */usr/bin/showtext*, indicating a custom script is executed instead of a standard shell.
+
+Viewing the contents of */usr/bin/showtext*, we see that it:
+
+*Forces the terminal type to *linux*.
+
+*Displays a file *text.txt* using the *more* command.
+
+*Then exits immediately with exit 0.
+
+*Step 3:* The trick lies in abusing the interactive behavior of the more command. If more cannot display the full content of text.txt in one screen, it allows user interaction, including the use of the v key to launch an editor (typically Vim).
+
+To exploit this:
+
+*Resize the terminal window so that more cannot display the entire text.txt file in one screen.
+
+*This enables interaction. Press v to open the file in Vim.
+
+*Inside Vim, we cannot modify text.txt, but we can spawn a shell.
+
+Run the following commands inside Vim:
+
+        :set shell=/bin/bash
+        :shell
+
+This spawns an interactive shell as user bandit26, bypassing the restricted shell script. The :shell command only works because we explicitly set a valid shell using *:set shell=*.
+
+*Step 4:* Once inside the new shell, retrieve the password with:
+
+        cat /etc/bandit_pass/bandit26
