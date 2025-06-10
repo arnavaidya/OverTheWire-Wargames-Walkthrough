@@ -626,3 +626,27 @@ A tag named *secret* is found in the current commit.
         git show secret
         
 This gives us the password to the next level.
+
+### Bandit Level 31 → Level 32
+**Key Takeaways**: learn how to use git commands, specifically the git add, commit and push commands, as well as about git files such as .gitignore. There is a git repository at ssh://bandit31-git@localhost/home/bandit31-git/repo. The password for the user bandit31-git is the same as for the user bandit31. Clone the repository and find the password for the next level.
+
+**Approach**:
+
+*Step 1:* Create our own directory within the /tmp directory and clone the git repository to the directory. Go into the *repo* directory, and open the *README.md* file (Similar to the previous level).
+
+        mkdir /tmp/arnavgit31
+        cd /tmp/arnavgit31
+        git clone ssh://bandit31-git@localhost:2220/home/bandit31-git/repo
+        ls
+        cd repo
+        cat README.md
+
+The README.md does not have the password, but instructs us to add a file named *key.txt* to the repo.
+
+*Step 2:* Create a file named *key.txt* and enter the given message in it. On adding the file using *git add*, we see that the *.gitignore* file denies the ability to add any text files to the repo. We need to modify the *.gitignore* file to remove the line "*.txt". We can finally add the file now. Use *git commit* with a message, and finally push the file with origin "master". *git status* can be used at any point to know the current status of git.
+
+        git add key.txt
+        git commit -m "Added key.txt"
+        git push origin master
+        
+Following these steps will result in the repo displaying a banner with mutiple terminal outputs and a "Well done!" message with the password to the next level.
