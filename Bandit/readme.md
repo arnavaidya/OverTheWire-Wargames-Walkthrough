@@ -529,3 +529,19 @@ This spawns an interactive shell as user bandit26, bypassing the restricted shel
         ./bandit27-do cat /etc/bandit_pass/bandit27
 
 This will return the password to the next level.
+
+### Bandit Level 27 → Level 28
+**Key Takeaways**: Learn how to use git commands, specifically the git clone command. There is a git repository at ssh://bandit27-git@localhost/home/bandit27-git/repo. The password for the user bandit27-git is the same as for the user bandit27. Clone the repository and find the password for the next level.
+
+**Approach**:
+
+*Step 1:* Create our own directory within the /tmp directory and clone the git repository to the directory. Go into the *repo* directory, and open the *README* file for the password to the next level.
+
+        mkdir /tmp/arnavgit
+        cd /tmp/arnavgit
+        git clone ssh://bandit27-git@localhost:2220/home/bandit27-git/repo
+        ls
+        cd repo
+        cat README
+
+This will return the password to the next level.
