@@ -518,3 +518,14 @@ This spawns an interactive shell as user bandit26, bypassing the restricted shel
 *Step 4:* Once inside the new shell, retrieve the password with:
 
         cat /etc/bandit_pass/bandit26
+
+### Bandit Level 26 → Level 27
+**Key Takeaways**: Revise how a setuid executable works. Good job getting a shell! Now hurry and grab the password for bandit27!
+
+**Approach**:
+
+*Step 1:* We find that there is a file bandit27-do in the working directory after being logged in, and that it is a setuid ELF 32-bit LSB executable. We had previously encountered this in level 19, and the same method is used to solve this level's challenge.
+
+        ./bandit27-do cat /etc/bandit_pass/bandit27
+
+This will return the password to the next level.
