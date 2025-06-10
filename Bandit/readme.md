@@ -628,7 +628,7 @@ A tag named *secret* is found in the current commit.
 This gives us the password to the next level.
 
 ### Bandit Level 31 → Level 32
-**Key Takeaways**: learn how to use git commands, specifically the git add, commit and push commands, as well as about git files such as .gitignore. There is a git repository at ssh://bandit31-git@localhost/home/bandit31-git/repo. The password for the user bandit31-git is the same as for the user bandit31. Clone the repository and find the password for the next level.
+**Key Takeaways**: Learn how to use git commands, specifically the git add, commit and push commands, as well as about git files such as .gitignore. There is a git repository at ssh://bandit31-git@localhost/home/bandit31-git/repo. The password for the user bandit31-git is the same as for the user bandit31. Clone the repository and find the password for the next level.
 
 **Approach**:
 
@@ -650,3 +650,23 @@ The README.md does not have the password, but instructs us to add a file named *
         git push origin master
         
 Following these steps will result in the repo displaying a banner with mutiple terminal outputs and a "Well done!" message with the password to the next level.
+
+### Bandit Level 32 → Level 33
+**Key Takeaways**: Learn how to escape from an upper-case shell, by examining the options of sh command. After all this git stuff its time for another escape. Good luck!
+
+**Approach**:
+
+*Step 1:* After we have logged in, we find that there is a welcome message that greets us as part of the upper-case shell (GNU Bourne-Again Shell). Any command that is entered is being converted to upper-case before being processed and the permission of execution is being denied.
+
+*Step 2:* We need to find commands or inputs that cannot be converted to upper-case, something that does not have alphabets but, has numbers and/or special characters. On finding more about *sh* on man-pages, we come across 'positional parameters' like *$0*. The upper-case shell was likely to have been a shell supplied with additional parameters to convert all of the commands to upper-case. Executing *$0* runs the shell again, without any parameters, thus giving us /bin/sh.
+
+        WELCOME TO THE UPPERCASE SHELL
+        >> $0
+        
+*Step 3:* On using *whoami*, we see that the shell grants us the privileges of bandit33. We can simply get the password now from the */etc/bandit_pass* directory.
+
+        $ whoami
+        bandit33
+        $ cat /etc/bandit_pass/bandit33
+
+This will give us the password to the next level.
