@@ -590,7 +590,7 @@ The password in this level appears to be censored.
 
 The password in this level is not displayed in production, indicating that there might be multiple branches.
 
-*Step 2:* We can see the listof all the branches in the repo using the *git branch* command.
+*Step 2:* We can see the list of all the branches in the repo using the *git branch* command.
 
         git branch -a
 
@@ -599,3 +599,30 @@ The password in this level is not displayed in production, indicating that there
         git checkout remotes/origin/dev 
         cat README.md
 
+### Bandit Level 30 → Level 31
+**Key Takeaways**: Learn how to use git commands, specifically the git tags and git show commands. There is a git repository at ssh://bandit30-git@localhost/home/bandit30-git/repo. The password for the user bandit30-git is the same as for the user bandit30.
+
+**Approach**:
+
+*Step 1:* Create our own directory within the /tmp directory and clone the git repository to the directory. Go into the *repo* directory, and open the *README.md* file (Similar to the previous level).
+
+        mkdir /tmp/arnavgit30
+        cd /tmp/arnavgit30
+        git clone ssh://bandit30-git@localhost:2220/home/bandit30-git/repo
+        ls
+        cd repo
+        cat README.md
+
+The README.md does not have the password at all in this level; just presents a message mocking us.
+
+*Step 2:* There are no other significant branches to checkout as well. One of the crucial features of git is versioning and 'tags' are an important part of it. We can identify versions or commits with tags in git. The command *git tag* displays the list of tags used in the commit.
+
+        git tag
+
+A tag named *secret* is found in the current commit.
+
+*Step 3:* More information about the tag can be found using the *git show* command.
+
+        git show secret
+        
+This gives us the password to the next level.
