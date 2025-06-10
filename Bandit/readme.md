@@ -545,3 +545,32 @@ This will return the password to the next level.
         cat README
 
 This will return the password to the next level.
+
+### Bandit Level 28 → Level 29
+**Key Takeaways**: learn how to use git commands, specifically the git log/checkout/reset command. There is a git repository at ssh://bandit28-git@localhost/home/bandit28-git/repo. The password for the user bandit28-git is the same as for the user bandit28.
+
+**Approach**:
+
+*Step 1:* Create our own directory within the /tmp directory and clone the git repository to the directory. Go into the *repo* directory, and open the *README.md* file (Similar to the previous level).
+
+        mkdir /tmp/arnavgit28
+        cd /tmp/arnavgit28
+        git clone ssh://bandit28-git@localhost:2220/home/bandit28-git/repo
+        ls
+        cd repo
+        cat README.md
+
+The password in this level appears to be censored.
+
+*Step 2:* A git repository can tell us more about itself through its logs. For this, we can use *git log* to see all the commits that have been made to the repo. 
+
+        git log
+
+*Step 3:* One of the commits appears to have a message saying "add missing data" with it. This suggests that the password might be uncensored in this commit. We can use *git checkout* with the commit hash for finding out the state of the repo at the instance of that commit.
+
+        git checkout fb0df1358b1ff146f581651a84bae622353a71c0
+
+*Step 4:* On reading the *README.md* file, we can see the uncensored password for the next level.
+
+        cat README.md
+
