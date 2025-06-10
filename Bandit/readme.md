@@ -496,17 +496,17 @@ Viewing the contents of */usr/bin/showtext*, we see that it:
 
 * Displays a file *text.txt* using the *more* command.
 
-* Then exits immediately with exit 0.
+* Then exits immediately with *exit 0*.
 
-*Step 3:* The trick lies in abusing the interactive behavior of the more command. If more cannot display the full content of text.txt in one screen, it allows user interaction, including the use of the v key to launch an editor (typically Vim).
+*Step 3:* The trick lies in abusing the interactive behavior of the more command. If more cannot display the full content of *text.txt* in one screen, it allows user interaction, including the use of the *v* key to launch an editor (typically Vim).
 
 To exploit this:
 
-* Resize the terminal window so that more cannot display the entire text.txt file in one screen.
+* Resize the terminal window so that more cannot display the entire *text.txt* file in one screen.
 
-* This enables interaction. Press v to open the file in Vim.
+* This enables interaction. Press *v* to open the file in Vim.
 
-* Inside Vim, we cannot modify text.txt, but we can spawn a shell.
+* Inside Vim, we cannot modify *text.txt*, but we can spawn a shell.
 
 Run the following commands inside Vim:
 
