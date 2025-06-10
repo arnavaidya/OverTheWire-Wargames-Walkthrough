@@ -547,7 +547,7 @@ This will return the password to the next level.
 This will return the password to the next level.
 
 ### Bandit Level 28 → Level 29
-**Key Takeaways**: learn how to use git commands, specifically the git log/checkout/reset command. There is a git repository at ssh://bandit28-git@localhost/home/bandit28-git/repo. The password for the user bandit28-git is the same as for the user bandit28.
+**Key Takeaways**: Learn how to use git commands, specifically the git log/checkout/reset command. There is a git repository at ssh://bandit28-git@localhost/home/bandit28-git/repo. The password for the user bandit28-git is the same as for the user bandit28.
 
 **Approach**:
 
@@ -572,5 +572,30 @@ The password in this level appears to be censored.
 
 *Step 4:* On reading the *README.md* file, we can see the uncensored password for the next level.
 
+        cat README.md
+
+### Bandit Level 29 → Level 30
+**Key Takeaways**: Learn how to use git commands, specifically the git branch and checkout command. There is a git repository at ssh://bandit29-git@localhost/home/bandit29-git/repo. The password for the user bandit29-git is the same as for the user bandit29.
+
+**Approach**:
+
+*Step 1:* Create our own directory within the /tmp directory and clone the git repository to the directory. Go into the *repo* directory, and open the *README.md* file (Similar to the previous level).
+
+        mkdir /tmp/arnavgit29
+        cd /tmp/arnavgit29
+        git clone ssh://bandit29-git@localhost:2220/home/bandit29-git/repo
+        ls
+        cd repo
+        cat README.md
+
+The password in this level is not displayed in production, indicating that there might be multiple branches.
+
+*Step 2:* We can see the listof all the branches in the repo using the *git branch* command.
+
+        git branch -a
+
+*Step 3:* All branches can be checked using the *git checkout* command. On checking the remotes/origin/dev branch, we find the password written in the README.md file.
+
+        git checkout remotes/origin/dev 
         cat README.md
 
