@@ -9,9 +9,7 @@ Bandit – Linux basics, file manipulation, SSH, permissions
 # What You'll Find:
 1. Step-by-step solutions for each level
 
-2. Command explanations to help you learn, not just solve
-
-3. Tips and resources for understanding key concepts
+2. Command explanations that helped me learn, not just solve
 
 # Getting Started:
 
