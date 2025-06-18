@@ -108,7 +108,7 @@ The password will appear on the page.
 5. We simply need to reverse the encoding process to obtain the secret:
 
            <?php
-           $encodedSecret = "3d3d516343746d4d6d6c315669563362";
+           $encodedSecret = "someFixedString";
            print base64_decode(strrev(hex2bin($encodedSecret)));
            ?>
 
