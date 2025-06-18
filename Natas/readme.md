@@ -30,7 +30,7 @@ Websites can use the HTTP `Referer` header to check where a request originated. 
 
 1. Log in using the username `natas4` and the password obtained from Level 3.
 
-2. The page will display a message like: You are visiting from "http://natas4.natas.labs.overthewire.org/" while authorized users should come only from "http://natas5.natas.labs.overthewire.org/"
+2. The page will display a message like: "You are visiting from "http://natas4.natas.labs.overthewire.org/" while authorized users should come only from "http://natas5.natas.labs.overthewire.org/""
 
 3. To bypass this check, modify the `Referer` header in your request. You can do this using tools like `curl` or Burp Suite.
 
@@ -40,6 +40,6 @@ Websites can use the HTTP `Referer` header to check where a request originated. 
 
 The password will be displayed within the HTML code.
 
-5. For Burp Suite, simply change the Referer from "http://natas4.natas.labs.overthewire.org" to "http://natas5.natas.labs.overthewire.org/" manually, to get the password on the page.
+5. For Burp Suite, simply change the Referer from http://natas4.natas.labs.overthewire.org to http://natas5.natas.labs.overthewire.org/ manually, to get the password on the page.
 
 
