@@ -92,7 +92,6 @@ Copy the secret value.
 The password will appear on the page.
 
 ### Natas Level 8 → Level 9  
-
 **Key Takeaways**: This level demonstrates insecure cryptographic operations — specifically weak encoding/decoding practices where an algorithm is easily reversible if you know its behavior.
 
 **Procedure**:  
@@ -113,3 +112,26 @@ The password will appear on the page.
            ?>
 
 6. This PHP code will give the secret. The secret when entered into the field will give the password to the next level.
+
+### Natas Level 9 → Level 10  
+**Key Takeaways**: This level introduces command injection, where user input is passed directly to a system command without proper sanitization, allowing arbitrary command execution.
+
+**Procedure**:  
+
+1. Log in using the username `natas9` and the password obtained from Level 8.
+
+2. The page has a form where you can enter a search term (for example, to search in a file).
+
+3. View source code using the link provided.
+
+4. In the PHP code, you'll see that user input is passed into a system command like:
+  
+                passthru("grep -i $key dictionary.txt");
+
+5. Since input is not properly escaped, you can inject a command:
+
+                a; cat /etc/natas_webpass/natas10
+   
+Submit this payload in the search form.
+
+6. The server will execute both the `grep` and `cat` commands, displaying the password for natas10.
