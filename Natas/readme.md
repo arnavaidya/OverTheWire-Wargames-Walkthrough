@@ -76,3 +76,17 @@ Copy the secret value.
 
 6. Enter this value in the form on the main page and submit it. The page will display the password for natas7.
 
+### Natas Level 7 → Level 8  
+**Key Takeaways**: This level teaches about directory traversal (path traversal) attacks, where attackers manipulate file paths to access files outside the intended directory.
+
+**Procedure**:  
+
+1. Log in using the username `natas7` and the password obtained from Level 6.
+
+2. The page will display links like: `?page=home`, `?page=about`
+
+3. View the page source: Right-click → *View Page Source*, or Press `Ctrl + U`. A hint says that the password is in `/etc/natas_webpass/natas8`.
+
+4. Try a directory traversal payload to access files outside the intended directory:
+   "`http://natas7.natas.labs.overthewire.org/index.php?page=/etc/natas_webpass/natas8`"
+The password will appear on the page.
