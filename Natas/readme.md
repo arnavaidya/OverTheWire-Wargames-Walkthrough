@@ -23,8 +23,7 @@ Websites often use a `robots.txt` file to tell search engines which directories 
 Open the page source using right-click → *View Page Source* or press `Ctrl + U`, but you may not find anything helpful there. Instead, try accessing `robots.txt` by appending `/robots.txt` to the URL. This file lists directories that the site owner wants to hide from search engines. Locate the disallowed directory path mentioned in `robots.txt` (/s3cr3t/), navigate to that directory in your browser, and look for files like `users.txt`. Open the file to find the password for the next level.
 
 ### Natas Level 4 → Level 5  
-**Key Takeaways**:  
-Websites can use the HTTP `Referer` header to check where a request originated. This level demonstrates how relying on the `Referer` for security is weak, as it can be easily manipulated.
+**Key Takeaways**: Websites can use the HTTP `Referer` header to check where a request originated. This level demonstrates how relying on the `Referer` for security is weak, as it can be easily manipulated.
 
 **Procedure**:  
 
@@ -42,4 +41,18 @@ The password will be displayed within the HTML code.
 
 5. For Burp Suite, simply change the Referer from http://natas4.natas.labs.overthewire.org to http://natas5.natas.labs.overthewire.org/ manually, to get the password on the page.
 
+### Natas Level 5 → Level 6  
+**Key Takeaways**: This level introduces the concept of cookies for user identification. It shows how cookies can be manipulated to change user roles or bypass restrictions.
 
+**Procedure**:  
+
+1. Log in using the username `natas5` and the password obtained from Level 4.
+
+2. The page will display: "Access disallowed. You are not logged in". This indicates that we need to somehow login to the website.
+
+3. This can be done by manipulating the cookies using the browser Developer Tools.
+- Open the browser's DevTools (F12 or Ctrl + Shift + I).
+- Go to the *Application* (or *Storage*) tab.
+- Find and edit the cookie for `loggedin` to `1`.
+
+4. Reload the page, and the server will grant access and display the password for natas6.
