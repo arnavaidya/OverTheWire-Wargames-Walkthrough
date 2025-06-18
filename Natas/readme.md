@@ -21,3 +21,25 @@ Websites often use a `robots.txt` file to tell search engines which directories 
 
 **Procedure**:  
 Open the page source using right-click → *View Page Source* or press `Ctrl + U`, but you may not find anything helpful there. Instead, try accessing `robots.txt` by appending `/robots.txt` to the URL. This file lists directories that the site owner wants to hide from search engines. Locate the disallowed directory path mentioned in `robots.txt` (/s3cr3t/), navigate to that directory in your browser, and look for files like `users.txt`. Open the file to find the password for the next level.
+
+### Natas Level 4 → Level 5  
+**Key Takeaways**:  
+Websites can use the HTTP `Referer` header to check where a request originated. This level demonstrates how relying on the `Referer` for security is weak, as it can be easily manipulated.
+
+**Procedure**:  
+
+1. Log in using the username `natas4` and the password obtained from Level 3.
+
+2. The page will display a message like: You are visiting from "http://natas4.natas.labs.overthewire.org/" while authorized users should come only from "http://natas5.natas.labs.overthewire.org/"
+
+3. To bypass this check, modify the `Referer` header in your request. You can do this using tools like `curl` or Burp Suite.
+
+4. Example with `curl`:
+
+    curl -u natas4:<password> --referer "http://natas5.natas.labs.overthewire.org/" http://natas4.natas.labs.overthewire.org/
+
+The password will be displayed within the HTML code.
+
+5. For Burp Suite, simply change the Referer from "http://natas4.natas.labs.overthewire.org" to "http://natas5.natas.labs.overthewire.org/" manually, to get the password on the page.
+
+
