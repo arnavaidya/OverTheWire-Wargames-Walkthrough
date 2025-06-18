@@ -135,3 +135,26 @@ The password will appear on the page.
 Submit this payload in the search form.
 
 6. The server will execute both the `grep` and `cat` commands, displaying the password for natas10.
+
+### Natas Level 10 → Level 11  
+**Key Takeaways**: This level builds on command injection, but the input is filtered. It demonstrates that weak input filtering can still be bypassed if not done properly.
+
+**Procedure**:  
+
+1. Log in using the username `natas10` and the password obtained from Level 9.
+
+2. The page again offers a search form similar to the previous level.
+
+3. View source code using the link provided.
+
+4. The PHP code shows a blacklist filter:
+   
+          if(preg_match('/[;|&]/',$key)) {
+                print "Input contains an illegal character!";
+            } else {
+                passthru("grep -i $key dictionary.txt");
+            }
+
+5. The filter blocks ;, &, and |, but you can use alternative ways to inject commands, such as:
+
+                a /etc/natas_webpass/natas11
