@@ -90,3 +90,26 @@ Copy the secret value.
 4. Try a directory traversal payload to access files outside the intended directory:
    "`http://natas7.natas.labs.overthewire.org/index.php?page=/etc/natas_webpass/natas8`"
 The password will appear on the page.
+
+### Natas Level 8 → Level 9  
+
+**Key Takeaways**: This level demonstrates insecure cryptographic operations — specifically weak encoding/decoding practices where an algorithm is easily reversible if you know its behavior.
+
+**Procedure**:  
+
+1. Log in using the username `natas8` and the password obtained from Level 7.
+
+2. The page asks you to enter a secret.
+
+3. View source code using the link provided.
+   
+4. In the PHP source, we can see the encoded secret along with the function that encodes the secret: `bin2hex(strrev(base64_encode($secret)));`
+
+5. We simply need to reverse the encoding process to obtain the secret:
+
+           <?php
+           $encodedSecret = "3d3d516343746d4d6d6c315669563362";
+           print base64_decode(strrev(hex2bin($encodedSecret)));
+           ?>
+
+6. This PHP code will give the secret. The secret when entered into the field will give the password to the next level.
