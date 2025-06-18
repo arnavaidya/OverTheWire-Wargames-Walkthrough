@@ -124,13 +124,13 @@ The password will appear on the page.
 
 3. View source code using the link provided.
 
-4. In the PHP code, you'll see that user input is passed into a system command like:
-  
-                passthru("grep -i $key dictionary.txt");
+4. In the PHP code, you'll see that user input is passed into a system command like: `passthru("grep -i $key dictionary.txt");`
 
 5. Since input is not properly escaped, you can inject a command:
 
                 a; cat /etc/natas_webpass/natas10
+                           or
+                grep -i; cat /etc/natas_webpass/natas10 dictionary.txt
    
 Submit this payload in the search form.
 
