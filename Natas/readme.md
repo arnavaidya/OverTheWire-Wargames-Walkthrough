@@ -36,7 +36,7 @@ Websites can use the HTTP `Referer` header to check where a request originated. 
 
 4. Example with `curl`:
 
-    curl -u natas4:<password> --referer "http://natas5.natas.labs.overthewire.org/" http://natas4.natas.labs.overthewire.org/
+        curl -u natas4:<password> --referer "http://natas5.natas.labs.overthewire.org/" http://natas4.natas.labs.overthewire.org/
 
 The password will be displayed within the HTML code.
 
