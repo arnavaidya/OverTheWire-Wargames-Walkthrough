@@ -157,4 +157,4 @@ Submit this payload in the search form.
 
 5. The filter blocks ;, &, and |, but you can use alternative ways to inject commands, such as:
 
-                a /etc/natas_webpass/natas11
+        a /etc/natas_webpass/natas11
