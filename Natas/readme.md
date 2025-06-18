@@ -56,3 +56,23 @@ The password will be displayed within the HTML code.
 - Find and edit the cookie for `loggedin` to `1`.
 
 4. Reload the page, and the server will grant access and display the password for natas6.
+
+### Natas Level 6 → Level 7  
+**Key Takeaways**: This level demonstrates the danger of insecure file inclusion through user-controlled input. It highlights how including files based on unsanitized parameters can be exploited.
+
+**Procedure**:  
+
+1. Log in using the username `natas6` and the password obtained from Level 5.
+
+2. The page will show a form asking for an input like a secret code.
+
+3. View source code using the link provided.
+
+4. In the source code, look for hints. You’ll find: `include("includes/secret.inc")`;
+   This file likely contains the secret needed for the form.
+
+5. Try accessing this file directly by navigating to: `http://natas6.natas.labs.overthewire.org/includes/secret.inc`. The file will display something like: `$secret = "some_secret_value";`
+Copy the secret value.
+
+6. Enter this value in the form on the main page and submit it. The page will display the password for natas7.
+
