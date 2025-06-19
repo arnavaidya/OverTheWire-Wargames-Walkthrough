@@ -233,3 +233,39 @@ Submit this payload in the search form.
    This should return the new cookie data: `HmYkBwozJw4WNyAAFyB1VUc9MhxHaHUNAic4Awo2dVVHZzEJAyIxCUc5`.
 
 6. Replace the old cookie with the new one and the password will be displayed.
+
+### Natas Level 12 → Level 13  
+**Key Takeaways**: This level demonstrates insecure file upload handling. The server allows users to upload files without proper validation, leading to the risk of uploading malicious code (e.g., PHP shells).
+
+**Procedure**:
+
+1. Log in using the username `natas12` and the password obtained from Level 11.
+
+2. The page offers a file upload form where you can upload an image.
+
+3. View the page source:
+   - Right-click → *View Page Source*, or  
+   - Press `Ctrl + U`.
+
+4. From the source, you’ll notice that the server checks the file extension, but not the file contents
+   
+	if(filesize($_FILES['uploadedfile']['tmp_name']) > 1000) {
+        	echo "File is too big";
+    		} else {
+        		if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+            			echo "The file <a href=\"$target_path\">$target_path</a> has been uploaded";
+        		} else{
+            			echo "There was an error uploading the file, please try again!";
+        		}
+
+5. Another thing to notice is that the .jpg exension is being added in the HTML form, making it editable in the DevTools.
+   We can exploit this by creating a PHP script like:
+
+	<?php
+		require "/etc/natas_webpass/natas13";
+
+	?>
+
+6.  Open `Inspect` option with `Ctrl + Shift + C` and change the script in the HTML form element from `.jpg` to `.php` (<a href="upload/rand_str.jpg">upload/rand_str.jpg</a> to <a href="upload/rand_str.jpg">upload/rand_str.php</a>). Upload the script to the server now.
+
+7.  The script will be uploaded and the result will be generaed as a .php file in `/upload/rand_str.php`. Open the file to find the password to the next level. 
