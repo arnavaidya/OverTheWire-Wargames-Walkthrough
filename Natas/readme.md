@@ -267,3 +267,26 @@ Submit this payload in the search form.
 6.  Open `Inspect` option with `Ctrl + Shift + C` and change the script in the HTML form element from `.jpg` to `.php` (`<a href="upload/rand_str.jpg">upload/rand_str.jpg</a>` to `<a href="upload/rand_str.jpg">upload/rand_str.php</a>`). Upload the script to the server now.
 
 7.  The script will be uploaded and the result will be generaed as a .php file in `/upload/rand_str.php`. Open the file to find the password to the next level. 
+
+### Natas Level 13 → Level 14  
+**Key Takeaways**:  
+This level enhances file upload security by checking the file's actual signature using `exif_imagetype()`. This function inspects the first bytes of a file to verify it's a valid image. The challenge is to craft a file that passes this check but still contains executable PHP code.
+
+**Procedure**:
+
+1. Log in using the username `natas13` and the password obtained from Level 12.
+
+2. The upload form checks the file's signature using: exif_imagetype(); function. According to the documentation, the function reads the first bytes of an image and checks its signature.
+
+3. Forge a JPEG file by starting with a valid JPEG header (\xFF\xD8\xFF\xE0):
+
+		echo "\xFF\xD8\xFF\xE0<?php require '/etc/natas_webpass/natas14';" > script.php
+
+
+4. Confirm it identifies as a JPEG:
+
+		file image.php
+
+5. Upload this file using the form. Change the script in the HTML form element from `.jpg` to `.php` like the previous level. The file will pass the exif_imagetype() check due to its valid header.
+
+6. Access the uploaded file via the provided link. The PHP code at the end will execute and reveal the password for natas14.
