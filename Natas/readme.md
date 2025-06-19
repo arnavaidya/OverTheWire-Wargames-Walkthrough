@@ -243,9 +243,7 @@ Submit this payload in the search form.
 
 2. The page offers a file upload form where you can upload an image.
 
-3. View the page source:
-   - Right-click → *View Page Source*, or  
-   - Press `Ctrl + U`.
+3. View source code using the link provided. 
 
 4. From the source, you’ll notice that the server checks the file extension, but not the file contents
    
