@@ -247,14 +247,14 @@ Submit this payload in the search form.
 
 4. From the source, you’ll notice that the server checks the file extension, but not the file contents
    
-	if(filesize($_FILES['uploadedfile']['tmp_name']) > 1000) {
-        	echo "File is too big";
-    		} else {
-        		if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
-            			echo "The file <a href=\"$target_path\">$target_path</a> has been uploaded";
-        		} else{
-            			echo "There was an error uploading the file, please try again!";
-        		}
+		if(filesize($_FILES['uploadedfile']['tmp_name']) > 1000) {
+        		echo "File is too big";
+    			} else {
+        			if(move_uploaded_file($_FILES['uploadedfile']['tmp_name'], $target_path)) {
+            				echo "The file <a href=\"$target_path\">$target_path</a> has been uploaded";
+        			} else{
+            				echo "There was an error uploading the file, please try again!";
+        			}
 
 5. Another thing to notice is that the .jpg exension is being added in the HTML form, making it editable in the DevTools.
    We can exploit this by creating a PHP script like:
