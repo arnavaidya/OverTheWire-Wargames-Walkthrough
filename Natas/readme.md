@@ -344,7 +344,7 @@ If the first character is "a", the page content will change to indicate the user
 
 - When you get a hit, record the character and move to the next position.
 
-  Sample script (Credits: John Hammond):
+  Sample script (Credits: John Hammond): https://github.com/JohnHammond/overthewire_natas_solutions/blob/master/natas15.py
 
   		#!/usr/bin/env python3
 		# -*- coding: utf-8 -*-
