@@ -328,11 +328,11 @@ which means the query takes our input as it is and there is no input sanitizatio
 
 4. The query checks for:
    
-   	SELECT * from users where username=\"".$_REQUEST["username"]."\"
+   		SELECT * from users where username=\"".$_REQUEST["username"]."\"
    
 6. The goal is to extract the password for natas16 by asking yes/no questions in SQL. Example payload:
 
-	natas16" AND SUBSTRING(password,1,1) = "a" #
+		natas16" AND SUBSTRING(password,1,1) = "a" #
 
 If the first character is "a", the page content will change to indicate the user exists.
 
