@@ -264,6 +264,6 @@ Submit this payload in the search form.
 
 	?>
 
-6.  Open `Inspect` option with `Ctrl + Shift + C` and change the script in the HTML form element from `.jpg` to `.php` (<a href="upload/rand_str.jpg">upload/rand_str.jpg</a> to <a href="upload/rand_str.jpg">upload/rand_str.php</a>). Upload the script to the server now.
+6.  Open `Inspect` option with `Ctrl + Shift + C` and change the script in the HTML form element from `.jpg` to `.php` (`<a href="upload/rand_str.jpg">upload/rand_str.jpg</a>` to `<a href="upload/rand_str.jpg">upload/rand_str.php</a>`). Upload the script to the server now.
 
 7.  The script will be uploaded and the result will be generaed as a .php file in `/upload/rand_str.php`. Open the file to find the password to the next level. 
