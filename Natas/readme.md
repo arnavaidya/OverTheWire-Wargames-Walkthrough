@@ -290,3 +290,28 @@ This level enhances file upload security by checking the file's actual signature
 5. Upload this file using the form. Change the script in the HTML form element from `.jpg` to `.php` like the previous level. The file will pass the exif_imagetype() check due to its valid header.
 
 6. Access the uploaded file via the provided link. The PHP code at the end will execute and reveal the password for natas14.
+
+### Natas Level 14 → Level 15  
+
+**Key Takeaways**: This level introduces basic SQL injection in login forms. It highlights the risk of including unsanitized user input directly in SQL queries, which can allow attackers to bypass authentication.
+
+**Procedure**:
+
+1. Log in using the username `natas14` and the password obtained from Level 13.
+
+2. The page presents a login form asking for a username and password.
+
+3. View source code using the link provided. 
+
+4. The source reveals the server-side query structure:
+
+		SELECT * from users where username=\"".$_REQUEST["username"]."\" and password=\"".$_REQUEST["password"]."\"
+
+which means the query takes our input as it is and there is no input sanitization.
+
+5. We can use SQL injection directly, by entering
+
+		Username: "or""="
+		Password: "or""="
+
+7. This will directly give us the password to the next level.
