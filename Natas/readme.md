@@ -160,3 +160,76 @@ Submit this payload in the search form.
         a /etc/natas_webpass/natas11
 
 6. The server will execute both the `grep` and `cat` commands, displaying the password for natas11.   
+
+### Natas Level 11 → Level 12  
+**Key Takeaways**: This level demonstrates weak encryption with an XOR cipher applied to cookie data. If we can reverse-engineer the key, we can modify the cookie to escalate privileges.
+
+**Procedure**:
+
+1. Log in using the username `natas11` and the password obtained from Level 10.
+
+2. Capture the `data` cookie value provided by the server. Example: "`HmYkBwozJw4WNyAAFyB1VUcqOE1JZjUIBis7ABdmbU1GIjEJAyJvTRg%3D`".
+
+3. Furthermore, by taking a look in the source code, an XOR-base encryption function can be found.
+
+                function xor_encrypt($in) {
+                    $key = '<censored>';
+                    $text = $in;
+                    $outText = '';
+
+                    // Iterate through each character
+                    for($i=0;$i<strlen($text);$i++) {
+                    $outText .= $text[$i] ^ $key[$i % strlen($key)];
+                    }
+
+                    return $outText;
+                }
+
+4. To get our key the simplest way is to define a new function and use it in the local script as follows:
+
+                <?php
+                        function xor_encrypt_2($in) {
+		                $key = base64_decode("HmYkBwozJw4WNyAAFyB1VUcqOE1JZjUIBis7ABdmbU1GIjEJAyJvTRg%3D");
+		                $text = $in;
+		                $outText = '';
+
+		                // Iterate through each character
+		                for($i=0;$i<strlen($text);$i++) {
+			        $outText .= $text[$i] ^ $key[$i % strlen($key)];
+		                }
+		                return $outText;
+	                        }
+
+	                        $mydata = array( "showpassword"=>"no", "bgcolor"=>"#ffffff" );
+	                        $mydata_json = json_encode($mydata);
+	                        $mydata_enc = xor_encrypt_2($mydata_json);
+	                        echo $mydata_enc;
+                ?>
+   
+   The result should be: "`eDWoeDWoeDWoeDWoeDWoeDWoeDWoeDWoeDWoeD	oe`".
+
+5. It seems to be a repetition of the string `eDWo`, meaning it must be the key. Hence, we should replace the key in our script with it and execute it again. Note, that we must change the payload this time (Change "showpassword"=>"no" to "showpassword"=>"yes") and encode the result with base64. 
+
+                <?php
+                        function xor_encrypt_2($in) {
+		                $key = "eDWo";
+		                $text = $in;
+		                $outText = '';
+
+		                // Iterate through each character
+		                for($i=0;$i<strlen($text);$i++) {
+			        $outText .= $text[$i] ^ $key[$i % strlen($key)];
+		                }
+		                return $outText;
+	                        }
+
+	                        $mydata = array( "showpassword"=>"yes", "bgcolor"=>"#ffffff" );
+	                        $mydata_json = json_encode($mydata);
+	                        $mydata_enc = xor_encrypt_2($mydata_json);
+	                        $mydata_b64 = base64_encode($mydata_enc);
+	                        echo $mydata_b64;
+                ?>
+
+   This should return the new cookie data: `HmYkBwozJw4WNyAAFyB1VUc9MhxHaHUNAic4Awo2dVVHZzEJAyIxCUc5`.
+
+6. Replace the old cookie with the new one and the password will be displayed.
