@@ -466,11 +466,8 @@ This will build the password one character at a time until complete.
 This will gradually build the password for the next level.
 
 ### Natas Level 17 → Level 18  
-
 **Key Takeaways**  
 This level demonstrates **blind command injection** via timing attacks. The server does not return command output, but the attacker can infer results based on response delays (e.g., using `sleep`). This teaches the importance of defending against time-based side channels.
-
----
 
 **Procedure**
 
@@ -534,3 +531,4 @@ while len(seen_password) < 32:
 print("Recovered password:", ''.join(seen_password))
 ```
 This will gradually build the password.
+
