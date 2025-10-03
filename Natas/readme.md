@@ -540,6 +540,10 @@ print("Recovered password:", ''.join(seen_password))
 ```
 This will gradually build the password.
 
+### Natas Level 18 → Level 19
+**Key Takeaways**  
+
+**Procedure**
 
 
 
