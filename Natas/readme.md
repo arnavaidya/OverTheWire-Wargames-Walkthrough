@@ -638,6 +638,8 @@ for i in range(start, end + 1):
         print(f"[+] Found admin session! i = {i}, PHPSESSID = {hex_token}")
 ```       
 
+3. Input test credentials to enable the PHPSESSID cookie and then replace its value with the obtained `admin` cookie value and you'll get the password for the next level.
+
 
 
 
