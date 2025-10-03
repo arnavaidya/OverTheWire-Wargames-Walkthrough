@@ -490,7 +490,7 @@ This level demonstrates **blind command injection** via timing attacks. The serv
     - If the password prefix is correct, the server sleeps for 1 second.
     - Otherwise, it responds immediately.
 
-4. The script logic:
+4. The script logic (Credits: John Hammond): https://github.com/JohnHammond/overthewire_natas_solutions/blob/master/natas16.py
 
 ```
 #!/usr/bin/env python
@@ -554,7 +554,7 @@ This level demonstrates **session enumeration** / insecure session handling. Pre
 
 4. When you find a session that shows the admin content, the page will reveal the password for natas19. Save it and move on.
 
-5. The script logic:
+5. The script logic (Credits: John Hammond): https://github.com/JohnHammond/overthewire_natas_solutions/blob/master/natas18.py
 
 ```
 #!/usr/bin/env python3
@@ -587,6 +587,14 @@ for session_id in range(1, 641):
 ```
 
 This will brute force all session IDs to find the one for the `admin`.
+
+### Natas Level 19 → Level 20
+**Key Takeaways**  
+
+
+**Procedure**
+
+
 
 
 
