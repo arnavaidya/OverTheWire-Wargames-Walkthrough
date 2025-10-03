@@ -284,7 +284,7 @@ This level enhances file upload security by checking the file's actual signature
 
 4. Confirm it identifies as a JPEG:
 
-		file image.php
+		file script.php
 
 5. Upload this file using the form. Change the script in the HTML form element from `.jpg` to `.php` like the previous level. The file will pass the exif_imagetype() check due to its valid header.
 
@@ -530,6 +530,7 @@ while len(seen_password) < 32:
 print("Recovered password:", ''.join(seen_password))
 ```
 This will gradually build the password.
+
 
 
 
