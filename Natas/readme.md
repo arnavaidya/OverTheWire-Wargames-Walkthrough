@@ -830,3 +830,22 @@ print (response.text)
 ```
 The password for the next level will be revealed.
 
+### Natas Level 27 → Level 28
+**Key Takeaways**  
+In this level, the code will check if the user exists in the database and if you have the right password, it will display the password. If the user does not exists, it will be created in the database. If you try to login with the user `natas28` you’ll see the following error: `Wrong password for user: natas28`. It means that the user exists. So, we need to find a way to obtains the password. 
+
+If you create a user like user and a random password and create another user named user with enough space after the username to exceed the size of the SQL field and a random trailing characters and an empty password it will still get created. That due to the fact that MySQL will truncate the input to match the maximum field size. Then if you try to login with the user username and an empty password you’ll get the password!
+
+**Procedure**
+
+1. Log in using the username `natas27` and the password from Level 26.
+
+2. Create a user named `natas28                                                                                                   x` ("natas28" with multiple whitespaces and a marker at the end) with any password.
+
+3. Login with the username `natas28` and pasword that was set for `natas28                                                                                                   x`.
+
+4. This will be accepted and the password for the next level will be revealed.
+
+
+
+
