@@ -736,4 +736,15 @@ print(response.text)
 ```
 The password for the next level will be found in the content of the page.
 
+### Natas Level 23 → Level 24
+**Key Takeaways**  
+The source shows that PHP will coerce the string to a number for the `> 10` test. If the string starts with digits, the numeric value is those leading digits. So you can make both conditions true by prefixing digits > 10 before the substring `iloveyou`.
+
+**Procedure**
+
+1. Log in using the username `natas23` and the password from Level 22.
+
+2. Simply enter any string beginning with a number and having the substring 'iloveyou', say `123iloveyou` in the password field.
+
+3. You'll get the password for the next level.
 
