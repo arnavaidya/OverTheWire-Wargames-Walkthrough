@@ -748,3 +748,19 @@ The source shows that PHP will coerce the string to a number for the `> 10` test
 
 3. You'll get the password for the next level.
 
+### Natas Level 24 → Level 25
+**Key Takeaways**  
+The source shows that PHP will compare the entered password string with the actual password using the `strcmp` (string compare) function. This can be exploited by 
+
+**Procedure**
+
+1. Log in using the username `natas24` and the password from Level 23.
+
+2. Approach: `passwd[]=abc`
+
+	* passwd[]=abc sends `passwd` as an array (with one element `abc`) instead of a string.
+	* If the '$_REQUEST["passwd"]' is equal to an empty array, 'strcmp' returns a NULL. Due to some inherent weakneses in PHP comparisons, `NULL == 0 always returns a true`.
+
+3. Pass the 'passwd' parameter in the URL as an array (passwd[]) and equate it to any string.
+
+4. PHP will give a warning but the password for the next level will be revealed.
