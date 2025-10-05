@@ -329,11 +329,11 @@ which means the query takes our input as it is and there is no input sanitizatio
    
    		SELECT * from users where username=\"".$_REQUEST["username"]."\"
    
-6. The goal is to extract the password for natas16 by asking yes/no questions in SQL. Example payload:
+5. The goal is to extract the password for natas16 by asking yes/no questions in SQL. Example payload:
 
 		natas16" AND SUBSTRING(password,1,1) = "a" #
 
-If the first character is "a", the page content will change to indicate the user exists.
+6. If the first character is "a", the page content will change to indicate the user exists.
 
 7. Automate this by writing a script (Python, Bash, etc.) to loop through characters and positions:
 
@@ -1018,6 +1018,7 @@ str1 = answer.text
 print(answer.text)
 ```
 The password for the next level can be found in the content.
+
 
 
 
