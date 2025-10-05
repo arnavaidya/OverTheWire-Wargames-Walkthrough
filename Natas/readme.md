@@ -1017,6 +1017,7 @@ answer=requests.post('http://natas30.natas.labs.overthewire.org/index.pl', data=
 str1 = answer.text
 print(answer.text)
 ```
+The password for the next level can be found in the content.
 
 
 
