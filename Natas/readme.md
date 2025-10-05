@@ -974,9 +974,11 @@ else:
 * Bypass the filter by breaking the literal natas string with inserted URL-encoded quotes (e.g. na"t"as → na%22t%22as), or try URL-encoded terminators (%0a or %00) to terminate the filename input.
 * Send the crafted GET to index.pl?file=… (HTTP Basic auth for natas29) and the server will execute your command and include its output.
 * Extract the password from the response body (it typically appears plainly).
+* 
 **Procedure**
 
 1. Log in using the username `natas29` and the password from Level 28.
+
 
 
 
