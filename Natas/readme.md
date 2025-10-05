@@ -849,11 +849,11 @@ If you create a user like user and a random password and create another user nam
 ### Natas Level 28 → Level 29
 **Key Takeaways**  
 
-* Observe the query= value is base64 of AES-encrypted blocks (ECB) — find the block size = 16 by sending increasing-length inputs.
+* Observe the query= value is `base64 of AES-encrypted blocks (ECB)` — find the block size = 16 by sending increasing-length inputs.
 * Identify the known-good header (blocks 1–2), known-good trailer (last blocks), a dummy block (from a 10-space query), and the known-bad block produced when ' is sent (it contains the escape /).
-* Build a malicious plaintext like AAAAAAAAA' OR 1=1 -- so the server inserts a / before the ', pushing the ' into the next block (making that the “bad” block).
+* Build a malicious plaintext like `AAAAAAAAA' OR 1=1 --` so the server inserts a / before the ', pushing the ' into the next block (making that the “bad” block).
 * Replace that bad block in the base64 ciphertext with the dummy block (so the escaped / is removed) while keeping the header, your encrypted SQL-injection payload, and the trailer intact.
-* URL-encode the concatenated base64 string, submit it to search.php?query=…, and the DB will execute the injected query — revealing the natas29 password.
+* URL-encode the concatenated base64 string, submit it to `search.php?query=…`, and the DB will execute the injected query — revealing the natas29 password.
 
 **Procedure**
 
@@ -970,10 +970,10 @@ This will get you the password for the next level.
 
 ### Natas Level 29 → Level 30
 **Key Takeaways**  
-* index.pl?file= forwards your file string into a Perl context that accepts pipes — you can inject shell commands by prefixing |.
-* The application filters the token natas, so cat /etc/natas_webpass/natas30 is blocked.
-* Bypass the filter by breaking the literal natas string with inserted URL-encoded quotes (e.g. na"t"as → na%22t%22as), or try URL-encoded terminators (%0a or %00) to terminate the filename input.
-* Send the crafted GET to index.pl?file=… (HTTP Basic auth for natas29) and the server will execute your command and include its output.
+* `index.pl?file=` forwards your file string into a Perl context that accepts pipes — you can inject shell commands by prefixing `|`.
+* The application filters the token `natas`, so `cat /etc/natas_webpass/natas30` is blocked.
+* Bypass the filter by breaking the literal natas string with inserted URL-encoded quotes (e.g. `na"t"as` → `na%22t%22as`), or try URL-encoded terminators (`%0a` or `%00`) to terminate the filename input.
+* Send the crafted `GET` to `index.pl?file=…` (HTTP Basic auth for natas29) and the server will execute your command and include its output.
 * Extract the password from the response body (it typically appears plainly).
   
 **Procedure**
@@ -1004,6 +1004,7 @@ response = session.get("http://natas29.natas.labs.overthewire.org/index.pl?file=
 print (response.text)
 ```
 This will get you the password for the next level.
+
 
 
 
