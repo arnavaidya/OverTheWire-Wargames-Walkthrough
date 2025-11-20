@@ -1082,7 +1082,19 @@ print(response.text) # Get the password for natas32
 ```
 The password for the next level can be found in the content.
 
+### Natas Level 33 → Level 34
+**Key Takeaways**
 
+* The app takes in firmware as PHP input and executes it if the hash value matches.
+* The Executor class gets the filename from the POST request, checks if it’s over the filesize limit (4096 bytes).
+* Then it moves the uploaded file to the uploads directory using the file name, which is equivalent to the PHPSESSID.
+* In the __destruct() function, it checks that the current directory is the uploads directory.
+* If the md5 hash of the file is equal to the $signature value, it will run our file. It will fail otherwise.
+* This level is based on PHP unserialization attack.
+  
+**Procedure**
+
+1. Log in using the username `natas33` and the password from Level 32.
 
 
 
