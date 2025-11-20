@@ -1023,7 +1023,7 @@ The password for the next level can be found in the content.
 **Key Takeaways**  
 
 * The app takes in a CSV file and displays its content in a nicely formatted table.
-* Looking at the source code, the app is seen to use the CGI function in Perl, and the app logic matches the Perl Jam 2 vulnerability.
+* Looking at the source code, the app is seen to use the CGI function in Perl, and the app logic matches the Perl Jam vulnerability.
 
 **Procedure**
 
@@ -1046,6 +1046,21 @@ print(response.text)
 ```
 The password for the next level can be found in the content.
 
+### Natas Level 32 → Level 33
+**Key Takeaways**  
+* The app takes in a CSV file and displays its content in a nicely formatted table.
+* Looking at the source code, the app is seen to use the CGI function in Perl, and the app logic matches the Perl Jam vulnerability.
+* The only addition here is the effort that's needed to obtain the password.
+* We need to execute a binary that's located in the webroot, in order to get the password.
+
+1. Log in using the username `natas32` and the password from Level 31.
+
+2. Sample script:
+
+```
+
+```
+The password for the next level can be found in the content.
 
 
 
